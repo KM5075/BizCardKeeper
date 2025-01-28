@@ -4,7 +4,7 @@
 
 ## Feature
 
-- [ ] React+TypeScript の開発環境を Vite で作成
+- [x] React+TypeScript の開発環境を Vite で作成
 - [ ] Azure App Service にデプロイする
   - [ ] API から文字列を取得できることを確認
   - [ ] API 経由で DB アクセスができることを確認
@@ -17,7 +17,7 @@
   - [ ] Azure SQL database 環境
   - [ ] ローカルテスト用
 - [ ] Github Actions(Push)で CI/CD できる
-  - [ ] 自動でデプロイできる
+  - [x] 自動でデプロイできる
   - [ ] デプロイ時に Azure SQL database に自動でマイグレーションが適用される
   - [ ] 自動でテストが実行される
   - [ ] テスト用 DB がパイプライン上で構築されて実行される
