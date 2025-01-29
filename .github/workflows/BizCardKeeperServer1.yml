@@ -21,6 +21,12 @@ jobs:
         run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
       - name: Build
         run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+      - name: Client Side Test
+        run: |
+          cd .\BizcardKeeper.client\
+          npm install
+          npm i && npm run build --if-present
+          npm test
       - name: Test
         run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
       - name: Publish
