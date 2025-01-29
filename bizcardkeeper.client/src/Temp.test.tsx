@@ -5,6 +5,6 @@ import { Temp } from "./Temp";
 describe("Temp component", () => {
     test("renders Temp component", () => {
         render(<Temp />);
-        expect(screen.getByText("Temp")).toBeInTheDocument();
+        expect(screen.getByText("FailCheck")).toBeInTheDocument();
     });
 });
