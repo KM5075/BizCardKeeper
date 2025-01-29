@@ -8,7 +8,7 @@
 - [ ] Azure App Service にデプロイする
   - [ ] API から文字列を取得できることを確認
   - [ ] API 経由で DB アクセスができることを確認
-- [ ] Jest と react-testing-library を導入する
+- [x] Jest と react-testing-library を導入する
 - [ ] MSTest を導入する
   - [ ] TempAPI のテスト
   - [ ] テスト DB の構築
