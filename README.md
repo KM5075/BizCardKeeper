@@ -10,7 +10,7 @@
   - [ ] API 経由で DB アクセスができることを確認
 - [x] Jest と react-testing-library を導入する
 - [ ] MSTest を導入する
-  - [ ] TempAPI のテスト
+  - [x] TempAPI のテスト
   - [ ] テスト DB の構築
 - [ ] SQL Server 環境を用意する
   - [ ] ローカル環境
@@ -19,7 +19,7 @@
 - [ ] Github Actions(Push)で CI/CD できる
   - [x] 自動でデプロイできる
   - [ ] デプロイ時に Azure SQL database に自動でマイグレーションが適用される
-  - [ ] 自動でテストが実行される
+  - [x] 自動でテストが実行される
   - [ ] テスト用 DB がパイプライン上で構築されて実行される
 - [ ] ChakuraUI を導入する
 - [ ] users テーブルを作成する
