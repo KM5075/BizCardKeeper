@@ -8,6 +8,7 @@ env:
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: BizCardKeeper.Server
+  SERVER_TEST_DIRECTORY: BizCardKeeper.Server.Tests
 jobs:
   build:
     runs-on: windows-latest
@@ -28,7 +29,7 @@ jobs:
           npm i && npm run build --if-present
           npm test
       - name: Test
-        run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
+        run: dotnet test "${{ env.SERVER_TEST_DIRECTORY }}"
       - name: Publish
         run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
       - name: Publish Artifacts
