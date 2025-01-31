@@ -17,7 +17,7 @@ namespace BizCardKeeper.Server.Controllers.Tests
             var controller = new TempController();
             var result = controller.Get();
             var actual = result.Result as Microsoft.AspNetCore.Mvc.OkObjectResult;
-            Assert.AreEqual("Hello from TempController!!", actual.Value);
+            Assert.AreEqual("Hello from TempController", actual.Value);
         }
     }
 }
