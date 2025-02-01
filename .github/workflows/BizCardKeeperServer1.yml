@@ -26,6 +26,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       - name: Run EF Core migrations
         run: |
+          cd .\BizCardKeeper.Server\
           dotnet tool install --global dotnet-ef
           dotnet ef database update --connection '${{ secrets.AZURE_SQL_CONNECTION_STRING }}'
 
