@@ -10,6 +10,9 @@ env:
   WORKING_DIRECTORY: BizCardKeeper.Server
   SERVER_TEST_DIRECTORY: BizCardKeeper.Server.Tests
 
+permissions:
+  contents: read
+  id-token: write
 jobs:
   build:
     runs-on: windows-latest
