@@ -113,7 +113,7 @@ namespace BizCardKeeper.Server.Controllers.Tests
             context.Database.BeginTransaction();
             controller.Post(temp);
             var actualCount = context.Temp.Count();
-            var result = context.Temp.Where(t => t.Text == "PostTest Fail").FirstOrDefault();
+            var result = context.Temp.Where(t => t.Text == "PostTest").FirstOrDefault();
             context.Database.RollbackTransaction();
 
             // Assert
