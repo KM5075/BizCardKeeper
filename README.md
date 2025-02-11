@@ -5,22 +5,22 @@
 ## Feature
 
 - [x] React+TypeScript の開発環境を Vite で作成
-- [ ] Azure App Service にデプロイする
-  - [ ] API から文字列を取得できることを確認
-  - [ ] API 経由で DB アクセスができることを確認
+- [x] Azure App Service にデプロイする
+  - [x] API から文字列を取得できることを確認
+  - [x] API 経由で DB アクセスができることを確認
 - [x] Jest と react-testing-library を導入する
-- [ ] MSTest を導入する
+- [x] MSTest を導入する
   - [x] TempAPI のテスト
-  - [ ] テスト DB の構築
-- [ ] SQL Server 環境を用意する
-  - [ ] ローカル環境
-  - [ ] Azure SQL database 環境
-  - [ ] ローカルテスト用
-- [ ] Github Actions(Push)で CI/CD できる
+  - [x] テスト DB の構築
+- [x] SQL Server 環境を用意する
+  - [x] ローカル環境
+  - [x] Azure SQL database 環境
+  - [x] ローカルテスト用
+- [x] Github Actions(Push)で CI/CD できる
   - [x] 自動でデプロイできる
-  - [ ] デプロイ時に Azure SQL database に自動でマイグレーションが適用される
+  - [x] デプロイ時に Azure SQL database に自動でマイグレーションが適用される
   - [x] 自動でテストが実行される
-  - [ ] テスト用 DB がパイプライン上で構築されて実行される
+  - [x] テスト用 DB がパイプライン上で構築されて実行される
 - [ ] ChakuraUI を導入する
 - [ ] users テーブルを作成する
 
