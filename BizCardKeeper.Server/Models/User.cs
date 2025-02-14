@@ -17,10 +17,10 @@ namespace BizCardKeeper.Server.Models
         [Required]
         public string Description { get; set; } = string.Empty;
 
-        public string GithubId { get; set; }
+        public string? GithubId { get; set; }
 
-        public string QiitaId { get; set; }
+        public string? QiitaId { get; set; }
 
-        public string TwitterId { get; set; }
+        public string? TwitterId { get; set; }
     }
 }
