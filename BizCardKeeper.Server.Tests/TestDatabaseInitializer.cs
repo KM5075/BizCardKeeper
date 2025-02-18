@@ -24,9 +24,9 @@ public class TestDatabaseInitializer
                     context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
 
-                    // context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData1" });
-                    // context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData2" });
-                    // context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData3" });
+                    context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData1" });
+                    context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData2" });
+                    context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData3" });
 
                     var users = new User[]
                     {
