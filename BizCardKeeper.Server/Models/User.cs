@@ -22,5 +22,7 @@ namespace BizCardKeeper.Server.Models
         public string? QiitaId { get; set; }
 
         public string? TwitterId { get; set; }
+
+        public List<Skill> Skills { get; set; } = [];
     }
 }
