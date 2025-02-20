@@ -13,7 +13,7 @@ public class TestDatabaseInitializer
     private static readonly object _lock = new();
     private static bool _databaseInitialized;
 
-    public TestDatabaseInitializer()
+    static TestDatabaseInitializer()
     {
         lock (_lock)
         {
@@ -27,6 +27,8 @@ public class TestDatabaseInitializer
                     context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData1" });
                     context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData2" });
                     context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData3" });
+                    context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData4" });
+                    context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData4" });
 
                     var users = new User[]
                     {
@@ -56,6 +58,34 @@ public class TestDatabaseInitializer
                                 new Skill { Name = "skill4" },
                                 new Skill { Name = "skill5" },
                                 new Skill { Name = "skill6" }
+                            }
+                        },
+                        new User
+                        {
+                            Username = "user3",
+                            Description = "user3 description",
+                            GithubId = "user3_github",
+                            QiitaId = "user3_qiita",
+                            TwitterId = "user3_twitter",
+                            Skills = new List<Skill>
+                            {
+                                new Skill { Name = "skill7" },
+                                new Skill { Name = "skill8" },
+                                new Skill { Name = "skill9" }
+                            }
+                        },
+                        new User
+                        {
+                            Username = "user4",
+                            Description = "user4 description",
+                            GithubId = "user4_github",
+                            QiitaId = "user4_qiita",
+                            TwitterId = "user4_twitter",
+                            Skills = new List<Skill>
+                            {
+                                new Skill { Name = "skill10" },
+                                new Skill { Name = "skill11" },
+                                new Skill { Name = "skill12" }
                             }
                         }
                     };
