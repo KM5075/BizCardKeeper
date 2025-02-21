@@ -9,7 +9,6 @@ using BizCardKeeper.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using BizCardKeeper.Server.Tests;
-[assembly: ClassCleanupExecution(ClassCleanupBehavior.EndOfClass)]
 
 namespace BizCardKeeper.Server.Controllers.Tests
 {
