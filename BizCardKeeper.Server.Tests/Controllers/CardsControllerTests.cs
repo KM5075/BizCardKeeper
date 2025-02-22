@@ -8,6 +8,7 @@ using BizCardKeeper.Server.Controllers;
 using BizCardKeeper.Server.Data;
 using BizCardKeeper.Server.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BizCardKeeper.Server.Tests.Controllers;
@@ -86,7 +87,7 @@ public class CardsControllerTests
     {
         // Arrange
         var controller = new CardsController(_context);
-        var targetUser = _context.Users.First();
+        var targetUser = _context.Users.Include(o => o.Skills).First();
 
         // Act
         var result = controller.Get(targetUser.Id);

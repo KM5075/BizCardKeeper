@@ -32,9 +32,9 @@ public class CardsController : ControllerBase
     public ActionResult<User> Get(int id)
     {
         var user = _context.Users
-            .AsNoTracking()
             .Include(u => u.Skills)
-            .First(o => o.Id == id);
+            .FirstOrDefault(o => o.Id == id);
+
         if (user == null)
         {
             return NotFound();
