@@ -30,65 +30,57 @@ public class TestDatabaseInitializer
                     context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData4" });
                     context.Temp.Add(new BizCardKeeper.Server.Models.Temp { Id = 0, Text = "TestData4" });
 
-                    var users = new User[]
+                    var skills1 = new Skill[]
                     {
-                        new User
-                        {
-                            Username = "user1",
-                            Description = "user1 description",
-                            GithubId = "user1_github",
-                            QiitaId = "user1_qiita",
-                            TwitterId = "user1_twitter",
-                            Skills = new List<Skill>
-                            {
-                                new Skill { Name = "skill1" },
-                                new Skill { Name = "skill2" },
-                                new Skill { Name = "skill3" }
-                            }
-                        },
-                        new User
-                        {
-                            Username = "user2",
-                            Description = "user2 description",
-                            GithubId = "user2_github",
-                            QiitaId = "user2_qiita",
-                            TwitterId = "user2_twitter",
-                            Skills = new List<Skill>
-                            {
-                                new Skill { Name = "skill4" },
-                                new Skill { Name = "skill5" },
-                                new Skill { Name = "skill6" }
-                            }
-                        },
-                        new User
-                        {
-                            Username = "user3",
-                            Description = "user3 description",
-                            GithubId = "user3_github",
-                            QiitaId = "user3_qiita",
-                            TwitterId = "user3_twitter",
-                            Skills = new List<Skill>
-                            {
-                                new Skill { Name = "skill7" },
-                                new Skill { Name = "skill8" },
-                                new Skill { Name = "skill9" }
-                            }
-                        },
-                        new User
-                        {
-                            Username = "user4",
-                            Description = "user4 description",
-                            GithubId = "user4_github",
-                            QiitaId = "user4_qiita",
-                            TwitterId = "user4_twitter",
-                            Skills = new List<Skill>
-                            {
-                                new Skill { Name = "skill10" },
-                                new Skill { Name = "skill11" },
-                                new Skill { Name = "skill12" }
-                            }
-                        }
+                        new Skill { Name = "skill1" },
+                        new Skill { Name = "skill2" },
+                        new Skill { Name = "skill3" }
                     };
+                    var skills2 = new Skill[]
+                    {
+                        new Skill { Name = "skill4" },
+                        new Skill { Name = "skill5" },
+                        new Skill { Name = "skill6" }
+                    };
+                    var skills3 = new Skill[]
+                    {
+                        new Skill { Name = "skill7" },
+                        new Skill { Name = "skill8" },
+                        new Skill { Name = "skill9" }
+                    };
+
+                    var user1 = new User
+                    {
+                        Username = "user1",
+                        Description = "user1 description",
+                        GithubId = "user1_github",
+                        QiitaId = "user1_qiita",
+                        TwitterId = "user1_twitter",
+                    };
+                    user1.Skills.AddRange(skills1);
+
+                    var user2 = new User
+                    {
+                        Username = "user2",
+                        Description = "user2 description",
+                        GithubId = "user2_github",
+                        QiitaId = "user2_qiita",
+                        TwitterId = "user2_twitter",
+                    };
+                    user2.Skills.AddRange(skills2);
+
+                    var user3 = new User
+                    {
+                        Username = "user3",
+                        Description = "user3 description",
+                        GithubId = "user3_github",
+                        QiitaId = "user3_qiita",
+                        TwitterId = "user3_twitter",
+                    };
+                    user3.Skills.AddRange(skills3);
+
+                    var users = new User[] { user1, user2, user3 };
+
                     context.Users.AddRange(users);
                     context.SaveChanges();
                 }

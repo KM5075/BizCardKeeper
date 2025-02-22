@@ -23,7 +23,7 @@ public class CardsController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<User>> GetAllUsers()
     {
-        return _context.Users.ToList();
+        return _context.Users.Include(u => u.Skills).ToList();
     }
 
     [HttpGet("{id}")]
@@ -31,18 +31,10 @@ public class CardsController : ControllerBase
     [ProducesResponseType(404)]
     public ActionResult<User> Get(int id)
     {
-        try
-        {
-            Console.WriteLine("Get");
-            var test = _context.Users.Include(u => u.Skills).First(o => o.Id == id);
-            Console.WriteLine(test.Skills.Count);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-        }
-
-        var user = _context.Users.Find(id);
+        var user = _context.Users
+            .AsNoTracking()
+            .Include(u => u.Skills)
+            .First(o => o.Id == id);
         if (user == null)
         {
             return NotFound();
@@ -72,21 +64,24 @@ public class CardsController : ControllerBase
     public ActionResult Test()
     {
         // DBにデータを追加
-        _context.Users.Add(new User
+        var skills = new List<Skill>
+            {
+                new Skill { Name = "skill10" },
+                new Skill { Name = "skill11" },
+                new Skill { Name = "skill12" }
+            };
+
+        var user = new User
         {
             Username = "user4",
             Description = "user4 description",
             GithubId = "user4_github",
             QiitaId = "user4_qiita",
             TwitterId = "user4_twitter",
-            Skills = new List<Skill>
-            {
-                new Skill { Name = "skill10" },
-                new Skill { Name = "skill11" },
-                new Skill { Name = "skill12" }
-            }
-        });
+        };
+        user.Skills.AddRange(skills);
 
+        _context.Users.Add(user);
         _context.SaveChanges();
 
         return Ok("Test");
