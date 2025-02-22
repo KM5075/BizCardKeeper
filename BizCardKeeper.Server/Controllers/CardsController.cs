@@ -20,7 +20,7 @@ public class CardsController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<User> GetAllUsers()
+    public ActionResult<IEnumerable<User>> GetAllUsers()
     {
         return _context.Users.ToList();
     }
