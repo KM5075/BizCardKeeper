@@ -21,8 +21,8 @@
   - [x] デプロイ時に Azure SQL database に自動でマイグレーションが適用される
   - [x] 自動でテストが実行される
   - [x] テスト用 DB がパイプライン上で構築されて実行される
-- [ ] ChakuraUI を導入する
-- [ ] users テーブルを作成する
+- [x] ChakuraUI を導入する
+- [x] users テーブルを作成する
 
 table: users
 
@@ -35,7 +35,7 @@ table: users
 | qiita_id    | varchar | null     |
 | x_id        | varchar | null     |
 
-- [ ] テストデータを 1 件用意する
+- [x] テストデータを 1 件用意する
 
 | Name        | Value                           |
 | ----------- | ------------------------------- |
@@ -46,7 +46,7 @@ table: users
 | qiita_id    | あなたの Qiita の ID            |
 | x_id        | あなたの X の ID                |
 
-- [ ] user_skill テーブルを作成する
+- [x] user_skill テーブルを作成する
       ユーザー ID とスキル ID を結ぶ中間テーブル
       table: user_skill
 
@@ -56,14 +56,14 @@ table: users
 | user_id  | varchar | non null |
 | skill_id | int8    | non null |
 
-- [ ] テストデータを 1 件追加する
+- [x] テストデータを 1 件追加する
 
 | Name     | Type      | Option |
 | -------- | --------- | ------ |
 | user_id  | sample-id |
 | skill_id | 1         |
 
-- [ ] skills テーブルを作成する
+- [x] skills テーブルを作成する
       table: skills
       プログラミングの技術を保存しておくテーブル
 
@@ -72,17 +72,16 @@ table: users
 | id   | int8    |          |
 | name | varchar | non null |
 
-- [ ] テストデータを追加する
+- [x] テストデータを追加する
       Name を React,TypeScript,Github で 3 つ作る
 
 - [ ] Router を設定する
       localhost:5132/cards/:id で id に入力した文字列を画面に表示できる
-- [ ] Supabase のセットアップ
 - [ ] 登録した情報を表示する(/cards/sample-id) でアクセスしたらその ID に紐づくユーザーデータを表示する
 
   - [ ] ユーザーデータ取得中はローディング画面を出す
   - [ ] ユーザー情報を取得する
-  - [ ] ユーザー ID から user_skill テーブルの user_id と一致するレコードをみつけてそのレコードの skill_id で skills テーブルを検索する
+  - [x] ユーザー ID から user_skill テーブルの user_id と一致するレコードをみつけてそのレコードの skill_id で skills テーブルを検索する
   - [ ] ユーザーとスキルをあわせて User として表示
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/810513/cfa45e42-3565-d96b-4a7c-420e788c989c.png)
