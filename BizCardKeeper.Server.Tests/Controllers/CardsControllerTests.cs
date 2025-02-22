@@ -81,4 +81,45 @@ public class CardsControllerTests
         }
     }
 
+    [TestMethod]
+    public void Get_TargetUserTest()
+    {
+        // Arrange
+        var controller = new CardsController(_context);
+        var targetUser = _context.Users.First();
+
+        // Act
+        var result = controller.Get(targetUser.Id);
+        var actual = result.Value as User;
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual((int)HttpStatusCode.OK, ApiTestHelper.GetStatusCode(result));
+        Assert.IsNotNull(actual);
+        Assert.AreEqual(targetUser.Username, actual.Username);
+        Assert.AreEqual(targetUser.Description, actual.Description);
+        Assert.AreEqual(targetUser.GithubId, actual.GithubId);
+        Assert.AreEqual(targetUser.QiitaId, actual.QiitaId);
+        Assert.AreEqual(targetUser.TwitterId, actual.TwitterId);
+        Assert.AreEqual(targetUser.Skills.Count, actual.Skills.Count);
+        for (int i = 0; i < targetUser.Skills.Count; i++)
+        {
+            Assert.AreEqual(targetUser.Skills[i].Name, actual.Skills[i].Name);
+        }
+    }
+
+    [TestMethod]
+    public void Get_NoDataTest()
+    {
+        // Arrange
+        var controller = new CardsController(_context);
+
+        // Act
+        var result = controller.Get(0);
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual((int)HttpStatusCode.NotFound, ApiTestHelper.GetStatusCode(result));
+    }
+
 }
