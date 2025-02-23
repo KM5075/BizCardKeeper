@@ -75,10 +75,10 @@ table: users
 - [x] テストデータを追加する
       Name を React,TypeScript,Github で 3 つ作る
 
-- [ ] Router を設定する
+- [x] Router を設定する
       localhost:5132/cards/:id で id に入力した文字列を画面に表示できる
-- [ ] 登録した情報を表示する(/cards/sample-id) でアクセスしたらその ID に紐づくユーザーデータを表示する
 
+- [ ] 登録した情報を表示する(/cards/sample-id) でアクセスしたらその ID に紐づくユーザーデータを表示する
   - [ ] ユーザーデータ取得中はローディング画面を出す
   - [ ] ユーザー情報を取得する
   - [x] ユーザー ID から user_skill テーブルの user_id と一致するレコードをみつけてそのレコードの skill_id で skills テーブルを検索する
