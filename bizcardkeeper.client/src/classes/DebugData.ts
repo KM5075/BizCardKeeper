@@ -16,8 +16,8 @@ export const debugUser: User = new User(
   1,
   "John Doe",
   "Software Engineer",
-  "johndoe",
-  "johndoe",
-  "johndoe",
+  "Github",
+  "Qiita",
+  "twitter",
   debugSkills
 );
