@@ -4,14 +4,16 @@ import { PrimaryButton } from "../atoms/PrimaryButton";
 import { User } from "../../classes/User";
 import { debugUser } from "../../classes/DebugData";
 import axios from "axios";
+import { useState } from "react";
 
 export const BizCard = () => {
-  const params = useParams();
-  const user: User = debugUser;
+  const { id } = useParams<{ id: string }>();
+  const [user, setUser] = useState<User>(debugUser);
 
   const featchUser = async () => {
-    await axios.get<User>("/api/cards/1").then((res) => {
+    await axios.get<User>("/api/cards/" + id).then((res) => {
       console.log(res.data);
+      setUser(res.data);
     });
   }
 
@@ -23,7 +25,7 @@ export const BizCard = () => {
         label="Load"
         onClick={featchUser}
       />
-      <Text>{JSON.stringify(params)}</Text>
+      <Text>ID : {id}</Text>
       <Text>名前 : {user.name}</Text>
       <Text>自己紹介 : {user.description}</Text>
       <Text>スキル:{user.skills.map((skill) => skill.name).join(",")}</Text>
