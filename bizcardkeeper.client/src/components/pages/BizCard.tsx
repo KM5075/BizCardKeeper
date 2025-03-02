@@ -3,20 +3,25 @@ import { useParams } from "react-router";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { User } from "../../classes/User";
 import { debugUser } from "../../classes/DebugData";
+import axios from "axios";
 
 export const BizCard = () => {
   const params = useParams();
   const user: User = debugUser;
+
+  const featchUser = async () => {
+    await axios.get<User>("/api/cards/1").then((res) => {
+      console.log(res.data);
+    });
+  }
 
   return (
     <div>
       <Heading as={"h1"}>BizCard</Heading>
       <Text>Business Card</Text>
       <PrimaryButton
-        label="Save"
-        onClick={() => {
-          console.log("test");
-        }}
+        label="Load"
+        onClick={featchUser}
       />
       <Text>{JSON.stringify(params)}</Text>
       <Text>名前 : {user.name}</Text>
