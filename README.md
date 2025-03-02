@@ -78,11 +78,11 @@ table: users
 - [x] Router を設定する
       localhost:5132/cards/:id で id に入力した文字列を画面に表示できる
 
-- [ ] 登録した情報を表示する(/cards/sample-id) でアクセスしたらその ID に紐づくユーザーデータを表示する
-  - [ ] ユーザーデータ取得中はローディング画面を出す
-  - [ ] ユーザー情報を取得する
+- [x] 登録した情報を表示する(/cards/sample-id) でアクセスしたらその ID に紐づくユーザーデータを表示する
+  - [x] ユーザーデータ取得中はローディング画面を出す
+  - [x] ユーザー情報を取得する
   - [x] ユーザー ID から user_skill テーブルの user_id と一致するレコードをみつけてそのレコードの skill_id で skills テーブルを検索する
-  - [ ] ユーザーとスキルをあわせて User として表示
+  - [x] ユーザーとスキルをあわせて User として表示
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/810513/cfa45e42-3565-d96b-4a7c-420e788c989c.png)
 
