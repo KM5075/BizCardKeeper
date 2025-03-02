@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BizCardKeeper.Server.Tests.Controllers;
+
 [TestClass]
 public class CardsControllerTests
 {
@@ -69,15 +70,21 @@ public class CardsControllerTests
         Assert.IsNotNull(actual);
         for (int i = 0; i < _context.Users.Count(); i++)
         {
-            Assert.AreEqual(_context.Users.ToList()[i].Username, actual.ToList()[i].Username);
+            Assert.AreEqual(_context.Users.ToList()[i].UserName, actual.ToList()[i].UserName);
             Assert.AreEqual(_context.Users.ToList()[i].Description, actual.ToList()[i].Description);
             Assert.AreEqual(_context.Users.ToList()[i].GithubId, actual.ToList()[i].GithubId);
             Assert.AreEqual(_context.Users.ToList()[i].QiitaId, actual.ToList()[i].QiitaId);
             Assert.AreEqual(_context.Users.ToList()[i].TwitterId, actual.ToList()[i].TwitterId);
-            Assert.AreEqual(_context.Users.ToList()[i].Skills.Count, actual.ToList()[i].Skills.Count);
+            Assert.AreEqual(
+                _context.Users.ToList()[i].Skills.Count,
+                actual.ToList()[i].Skills.Count
+            );
             for (int j = 0; j < _context.Users.ToList()[i].Skills.Count; j++)
             {
-                Assert.AreEqual(_context.Users.ToList()[i].Skills[j].Name, actual.ToList()[i].Skills[j].Name);
+                Assert.AreEqual(
+                    _context.Users.ToList()[i].Skills[j].Name,
+                    actual.ToList()[i].Skills[j].Name
+                );
             }
         }
     }
@@ -97,7 +104,7 @@ public class CardsControllerTests
         Assert.IsNotNull(result);
         Assert.AreEqual((int)HttpStatusCode.OK, ApiTestHelper.GetStatusCode(result));
         Assert.IsNotNull(actual);
-        Assert.AreEqual(targetUser.Username, actual.Username);
+        Assert.AreEqual(targetUser.UserName, actual.UserName);
         Assert.AreEqual(targetUser.Description, actual.Description);
         Assert.AreEqual(targetUser.GithubId, actual.GithubId);
         Assert.AreEqual(targetUser.QiitaId, actual.QiitaId);
@@ -122,5 +129,5 @@ public class CardsControllerTests
         Assert.IsNotNull(result);
         Assert.AreEqual((int)HttpStatusCode.NotFound, ApiTestHelper.GetStatusCode(result));
     }
-
 }
+

@@ -31,9 +31,7 @@ public class CardsController : ControllerBase
     [ProducesResponseType(404)]
     public ActionResult<User> Get(int id)
     {
-        var user = _context.Users
-            .Include(u => u.Skills)
-            .FirstOrDefault(o => o.Id == id);
+        var user = _context.Users.Include(u => u.Skills).FirstOrDefault(o => o.Id == id);
 
         if (user == null)
         {
@@ -44,9 +42,7 @@ public class CardsController : ControllerBase
     }
 
     [HttpPost]
-    public void Post([FromBody] string value)
-    {
-    }
+    public void Post([FromBody] string value) { }
 
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value)
@@ -65,15 +61,15 @@ public class CardsController : ControllerBase
     {
         // DBにデータを追加
         var skills = new List<Skill>
-            {
-                new Skill { Name = "skill10" },
-                new Skill { Name = "skill11" },
-                new Skill { Name = "skill12" }
-            };
+        {
+            new Skill { Name = "skill10" },
+            new Skill { Name = "skill11" },
+            new Skill { Name = "skill12" },
+        };
 
         var user = new User
         {
-            Username = "user4",
+            UserName = "user4",
             Description = "user4 description",
             GithubId = "user4_github",
             QiitaId = "user4_qiita",
@@ -87,3 +83,4 @@ public class CardsController : ControllerBase
         return Ok("Test");
     }
 }
+
