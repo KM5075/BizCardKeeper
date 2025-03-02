@@ -23,7 +23,6 @@ export const BizCard = () => {
   return (
     <div>
       <Heading as={"h1"}>BizCard</Heading>
-      <Text>Business Card</Text>
       <PrimaryButton
         label="Load"
         onClick={featchUser}
@@ -31,12 +30,12 @@ export const BizCard = () => {
       {user ?
         <div>
           <Text>ID : {id}</Text>
-          <Text>名前 : {user.name}</Text>
+          <Text>名前 : {user.userName}</Text>
           <Text>自己紹介 : {user.description}</Text>
           <Text>スキル:{user.skills.map((skill) => skill.name).join(",")}</Text>
-          <Text>Github : {user.github_id} </Text>
-          <Text>Qiita : {user.qiita_id} </Text>
-          <Text>X : {user.x_id} </Text>
+          <Text>Github : {user.githubId} </Text>
+          <Text>Qiita : {user.qiitaId} </Text>
+          <Text>X : {user.twitterId} </Text>
         </div>
         :
         <Text>データがありません</Text>
