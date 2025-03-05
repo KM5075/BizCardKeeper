@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { User } from "../../classes/User";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FaFileAlt } from "react-icons/fa";
 
 export const BizCard = () => {
   const { id } = useParams<{ id: string }>();
@@ -72,9 +73,37 @@ export const BizCard = () => {
               </svg>
             </Box>
           </Box>
-          <Text>Github : {user.githubId} </Text>
-          <Text>Qiita : {user.qiitaId} </Text>
-          <Text>X : {user.twitterId} </Text>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            mt={2}>
+            <Box
+              as="a"
+              href={`https://qiita.com/${user.qiitaId}`}
+              target="_blank"
+              color="black">
+              <FaFileAlt size={24} />
+            </Box>
+          </Box>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            mt={2}>
+            <Box
+              as="a"
+              href={`https://twitter.com/${user.twitterId}`}
+              target="_blank"
+              color="black">
+              <svg
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                width="24px"
+                height="24px"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.27 4.27 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04 4.27 4.27 0 00-7.29 3.89A12.13 12.13 0 013 4.8a4.27 4.27 0 001.32 5.7 4.27 4.27 0 01-1.93-.53v.05a4.27 4.27 0 003.42 4.18 4.27 4.27 0 01-1.92.07 4.27 4.27 0 003.99 2.97A8.56 8.56 0 012 19.54a12.07 12.07 0 006.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.39-.01-.58A8.72 8.72 0 0024 5.54a8.59 8.59 0 01-2.54.7z" />
+              </svg>
+            </Box>
+          </Box>
         </Box>
       ) : (
         <Text>データがありません</Text>
