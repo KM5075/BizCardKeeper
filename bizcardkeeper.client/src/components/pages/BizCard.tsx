@@ -52,8 +52,9 @@ export const BizCard = () => {
           <Text>{user.skills.map((skill) => skill.name).join(",")}</Text>
           <br />
           <Box
-            display={"flex"}
-            alignItems={"center"}>
+            display="flex"
+            justifyContent="space-between"
+            mt={4}>
             <Box
               as="a"
               href={`https://github.com/${user.githubId}`}
@@ -72,11 +73,6 @@ export const BizCard = () => {
                 />
               </svg>
             </Box>
-          </Box>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            mt={2}>
             <Box
               as="a"
               href={`https://qiita.com/${user.qiitaId}`}
@@ -84,11 +80,6 @@ export const BizCard = () => {
               color="black">
               <FaFileAlt size={24} />
             </Box>
-          </Box>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            mt={2}>
             <Box
               as="a"
               href={`https://twitter.com/${user.twitterId}`}
