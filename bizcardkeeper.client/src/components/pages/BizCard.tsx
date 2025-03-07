@@ -30,7 +30,7 @@ export const BizCard = () => {
       {user ? (
         <Box
           alignItems={"start"}
-          mt={4}
+          mt={0}
           p={4}
           borderWidth={1}
           textAlign={"left"}
@@ -42,9 +42,6 @@ export const BizCard = () => {
             mb={4}>
             {user.userName}
           </Heading>
-          <Text fontWeight={"bold"}>ID</Text>
-          <Text>{user.id}</Text>
-          <br />
           <Text fontWeight={"bold"}>自己紹介</Text>
           <Text>{user.description}</Text>
           <br />
@@ -54,7 +51,7 @@ export const BizCard = () => {
           <Box
             display="flex"
             justifyContent="space-between"
-            mt={4}>
+            mt={0}>
             <Box
               as="a"
               href={`https://github.com/${user.githubId}`}
