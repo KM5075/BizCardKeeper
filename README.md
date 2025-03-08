@@ -86,9 +86,9 @@ table: users
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/810513/cfa45e42-3565-d96b-4a7c-420e788c989c.png)
 
-- [ ] Github, Qiita, X はクリックすると飛べるようにする
-- [ ] ChakuraUI でスタイルを整える
-- [ ] 紹介文は HTML で表示する
+- [x] Github, Qiita, X はクリックすると飛べるようにする
+- [x] ChakuraUI でスタイルを整える
+- [x] 紹介文は HTML で表示する
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/810513/9b0c2541-2912-1173-ba4b-465054f378bd.png)
 
