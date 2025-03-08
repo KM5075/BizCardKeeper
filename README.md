@@ -101,6 +101,7 @@ table: users
   - [ ] アプリのローカルフォルダに出力する
   - [ ] ブラウザ上のログ確認画面からも確認できるようにする
   - [ ] ローカルではコンソールからも確認できるようにする
+  - [ ] 練習的に Azure Blob に出力するのも試してみる
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/810513/9b0c2541-2912-1173-ba4b-465054f378bd.png)
 
