@@ -25,6 +25,7 @@ if (builder.Environment.IsDevelopment())
 else
 {
     connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
+    logger.LogInformation("Connection string: {Connection}", connection);
     // マネージドIDを使用してアクセストークンを取得
     // var credential = new ManagedIdentityCredential();
     // var token = credential.GetToken(
@@ -38,9 +39,8 @@ else
         Authentication = SqlAuthenticationMethod.ActiveDirectoryManagedIdentity
     };
 
-    var SqlConnection = new SqlConnection(SqlBuilder.ConnectionString);
     // SqlConnection.AccessToken = token.Token;
-    connection = SqlConnection.ConnectionString;
+    connection = SqlBuilder.ConnectionString;
 }
 
 builder.Services.AddDbContext<BizCardKeeperDbContext>(options =>
