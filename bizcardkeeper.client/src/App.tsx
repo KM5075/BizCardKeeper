@@ -4,6 +4,7 @@ import { Temp } from "./Temp.tsx";
 import { Page404 } from "./components/pages/Page404.tsx";
 import { BizCard } from "./components/pages/BizCard.tsx";
 import { Home } from "./components/pages/Home.tsx";
+import { Login } from "./components/pages/Login.tsx";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
           <Route
             path="/cards/:id"
             element={<BizCard />}
+          />
+          <Route
+            path="/login"
+            element={<Login />}
           />
           <Route
             path="*"
