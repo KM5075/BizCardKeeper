@@ -26,12 +26,12 @@ else
 {
     connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
     // マネージドIDを使用してアクセストークンを取得
-    var credential = new ManagedIdentityCredential();
-    var token = credential.GetToken(
-        new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" })
-    );
+    // var credential = new ManagedIdentityCredential();
+    // var token = credential.GetToken(
+    //     new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" })
+    // );
 
-    logger.LogInformation("Token acquired: {Token}", token.Token);
+    // logger.LogInformation("Token acquired: {Token}", token.Token);
 
     var SqlBuilder = new SqlConnectionStringBuilder(connection)
     {
@@ -39,7 +39,7 @@ else
     };
 
     var SqlConnection = new SqlConnection(SqlBuilder.ConnectionString);
-    SqlConnection.AccessToken = token.Token;
+    // SqlConnection.AccessToken = token.Token;
     connection = SqlConnection.ConnectionString;
 }
 
