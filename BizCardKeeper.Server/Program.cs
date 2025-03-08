@@ -12,7 +12,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 var connection = String.Empty;
+var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+var logger = loggerFactory.CreateLogger<Program>();
+logger.LogInformation("Starting up");
 if (builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
@@ -26,6 +30,8 @@ else
     var token = credential.GetToken(
         new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" })
     );
+
+    logger.LogInformation("Token acquired: {Token}", token.Token);
 
     var SqlBuilder = new SqlConnectionStringBuilder(connection)
     {
