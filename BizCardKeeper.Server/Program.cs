@@ -18,7 +18,7 @@ if (builder.Environment.IsDevelopment())
 }
 else
 {
-    connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
+    connection = Environment.GetEnvironmentVariable("AZURE_SQL_SQL_GU0NB_CONNECTIONSTRING");
 }
 
 builder.Services.AddDbContext<BizCardKeeperDbContext>(options =>
