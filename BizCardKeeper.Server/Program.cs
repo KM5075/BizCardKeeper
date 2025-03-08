@@ -1,4 +1,6 @@
+using Azure.Identity;
 using BizCardKeeper.Server.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +20,21 @@ if (builder.Environment.IsDevelopment())
 }
 else
 {
-    connection = Environment.GetEnvironmentVariable("AZURE_SQL_SQL_GU0NB_CONNECTIONSTRING");
+    connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
+    // マネージドIDを使用してアクセストークンを取得
+    var credential = new ManagedIdentityCredential();
+    var token = credential.GetToken(
+        new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" })
+    );
+
+    var SqlBuilder = new SqlConnectionStringBuilder(connection)
+    {
+        Authentication = SqlAuthenticationMethod.ActiveDirectoryManagedIdentity
+    };
+
+    var SqlConnection = new SqlConnection(SqlBuilder.ConnectionString);
+    SqlConnection.AccessToken = token.Token;
+    connection = SqlConnection.ConnectionString;
 }
 
 builder.Services.AddDbContext<BizCardKeeperDbContext>(options =>
