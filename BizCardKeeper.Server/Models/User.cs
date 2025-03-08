@@ -5,13 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace BizCardKeeper.Server.Models;
+
 public class User
 {
     [Required]
     public int Id { get; set; }
 
     [Required]
-    public string Username { get; set; } = string.Empty;
+    public string UserName { get; set; } = string.Empty;
 
     [Required]
     public string Description { get; set; } = string.Empty;
@@ -24,3 +25,4 @@ public class User
 
     public List<Skill> Skills { get; } = [];
 }
+
