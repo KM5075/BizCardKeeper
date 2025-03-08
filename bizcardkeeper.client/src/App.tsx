@@ -13,6 +13,10 @@ function App() {
         <Routes>
           <Route
             path="/"
+            element={<Login />}
+          />
+          <Route
+            path="/home"
             element={<Home />}
           />
           <Route
@@ -22,10 +26,6 @@ function App() {
           <Route
             path="/cards/:id"
             element={<BizCard />}
-          />
-          <Route
-            path="/login"
-            element={<Login />}
           />
           <Route
             path="*"
