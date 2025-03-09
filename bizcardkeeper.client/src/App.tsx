@@ -6,6 +6,7 @@ import { BizCard } from "./components/pages/BizCard.tsx";
 import { Home } from "./components/pages/Home.tsx";
 import { Login } from "./components/pages/Login.tsx";
 import { LoginUserProvider } from "./providers/LoginUserProvider.tsx";
+import { PrivateRoute } from "./router/PrivateRoute.tsx";
 
 function App() {
   return (
@@ -19,15 +20,27 @@ function App() {
             />
             <Route
               path="/home"
-              element={<Home />}
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
             />
             <Route
               path="/temp"
-              element={<Temp />}
+              element={
+                <PrivateRoute>
+                  <Temp />
+                </PrivateRoute>
+              }
             />
             <Route
               path="/cards/:id"
-              element={<BizCard />}
+              element={
+                <PrivateRoute>
+                  <BizCard />
+                </PrivateRoute>
+              }
             />
             <Route
               path="*"
