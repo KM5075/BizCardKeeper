@@ -13,15 +13,26 @@ export const useAuth = () => {
     const loginUser = { id: userId, isAdmin: userId === "admin" };
     setLoginUser(loginUser);
     localStorage.setItem("loginUser", JSON.stringify(loginUser));
-
     console.log(`login: ${userId}`);
 
     navigate("/home");
     setLoading(false);
   };
 
+  const logout = () => {
+    setLoading(true);
+
+    setLoginUser(null);
+    localStorage.removeItem("loginUser");
+    console.log("logout");
+
+    navigate("/");
+    setLoading(false);
+  };
+
   return {
     login,
+    logout,
     loading,
   };
 };
