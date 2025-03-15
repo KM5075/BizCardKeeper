@@ -109,20 +109,10 @@ app.MapPost("api/logout", async (SignInManager<IdentityUser> signInManager,
 app.MapGet("api/auth/me", async (SignInManager<IdentityUser> signInManager, HttpContext httpContext) =>
 {
     var user = await signInManager.UserManager.GetUserAsync(httpContext.User);
-    if (user != null)
-    {
-        return Results.Ok(new { user.Id, user.UserName });
-    }
-    return Results.Unauthorized();
-});
-
-app.MapGet("api/auth/admin", async (SignInManager<IdentityUser> signInManager, HttpContext httpContext) =>
-{
-    var user = await signInManager.UserManager.GetUserAsync(httpContext.User);
     var isAdmin = await signInManager.UserManager.IsInRoleAsync(user, AppConstants.Authorization.Admin);
     if (user != null)
     {
-        return Results.Ok();
+        return Results.Ok(new { user.Id, user.UserName, isAdmin });
     }
     return Results.Unauthorized();
 });
