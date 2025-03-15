@@ -116,4 +116,15 @@ app.MapGet("api/auth/me", async (SignInManager<IdentityUser> signInManager, Http
     return Results.Unauthorized();
 });
 
+app.MapGet("api/auth/admin", async (SignInManager<IdentityUser> signInManager, HttpContext httpContext) =>
+{
+    var user = await signInManager.UserManager.GetUserAsync(httpContext.User);
+    var isAdmin = await signInManager.UserManager.IsInRoleAsync(user, AppConstants.Authorization.Admin);
+    if (user != null)
+    {
+        return Results.Ok();
+    }
+    return Results.Unauthorized();
+});
+
 app.Run();
