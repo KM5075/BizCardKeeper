@@ -2,7 +2,8 @@ using BizCardKeeper.Server.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc; // Add this line
+using Microsoft.AspNetCore.Mvc;
+using BizCardKeeper.Server.Constants; // Add this line
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,15 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 var app = builder.Build();
+
+// テスト用のユーザーを作成
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationIdentityDbContext>();
+    context.Database.Migrate();
+    await SeedData.Initialize(services);
+}
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
