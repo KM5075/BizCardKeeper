@@ -26,6 +26,7 @@ export const useAuth = () => {
         console.log(res.data);
       })
       .catch((err) => {
+        console.error("login error");
         console.error(err);
         setLoading(false);
         navigate("/");
@@ -72,6 +73,7 @@ export const useAuth = () => {
         setLoading(false);
       })
       .catch((err) => {
+        console.error("logout error");
         console.error(err);
         setLoading(false);
         navigate("/");
