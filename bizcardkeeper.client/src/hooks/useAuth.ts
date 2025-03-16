@@ -11,7 +11,7 @@ export const useAuth = () => {
   /**
    * Login処理
    * Cookieを使ってログイン処理を行う。正常にログインできた場合、ログインユーザー情報を取得し、
-   * ローカルストレージに保存後、Home画面に遷移する。
+   * Home画面に遷移する。
    * @param userId : ユーザーID
    * @param password : パスワード
    */
@@ -61,7 +61,7 @@ export const useAuth = () => {
   /**
    * Logout処理
    * Cookieを使ってログアウト処理を行う。正常にログアウトできた場合、ログインユーザー情報を削除し、
-   * ローカルストレージからも削除後、Login画面に遷移する。
+   * Login画面に遷移する。
    */
   const logout = () => {
     setLoading(true);
