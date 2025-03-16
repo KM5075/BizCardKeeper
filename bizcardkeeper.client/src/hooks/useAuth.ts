@@ -41,11 +41,11 @@ export const useAuth = () => {
           userName: res.data.userName,
           isAdmin: res.data.isAdmin,
         };
-    setLoginUser(loginUser);
-    localStorage.setItem("loginUser", JSON.stringify(loginUser));
-    console.log(`login: ${userId}`);
+        setLoginUser(loginUser);
+        localStorage.setItem("loginUser", JSON.stringify(loginUser));
+        console.log(`login: ${userId}`);
 
-    navigate("/home");
+        navigate("/home");
       })
       .catch((err) => {
         console.error(err);
@@ -59,12 +59,24 @@ export const useAuth = () => {
   const logout = () => {
     setLoading(true);
 
-    setLoginUser(null);
-    localStorage.removeItem("loginUser");
-    console.log("logout");
+    // Cookieの削除
+    axios
+      .post("api/logout", { text: "logout" })
+      .then((res) => {
+        console.log(res.data);
+        setLoginUser(null);
+        localStorage.removeItem("loginUser");
+        console.log("logout");
 
-    navigate("/");
-    setLoading(false);
+        navigate("/");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+        navigate("/");
+        return;
+      });
   };
 
   return {
