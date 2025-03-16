@@ -9,9 +9,11 @@ export const useAuth = () => {
   const { setLoginUser } = useLoginUser();
 
   /**
-   * Login
-   * @param userId
-   * @param password
+   * Login処理
+   * Cookieを使ってログイン処理を行う。正常にログインできた場合、ログインユーザー情報を取得し、
+   * ローカルストレージに保存後、Home画面に遷移する。
+   * @param userId : ユーザーID
+   * @param password : パスワード
    */
   const login = async (userId: string, password: string) => {
     setLoading(true);
@@ -37,6 +39,7 @@ export const useAuth = () => {
       .get("api/auth/me")
       .then((res) => {
         console.log(res.data);
+
         const loginUser = {
           id: res.data.id,
           userName: res.data.userName,
@@ -57,6 +60,11 @@ export const useAuth = () => {
     setLoading(false);
   };
 
+  /**
+   * Logout処理
+   * Cookieを使ってログアウト処理を行う。正常にログアウトできた場合、ログインユーザー情報を削除し、
+   * ローカルストレージからも削除後、Login画面に遷移する。
+   */
   const logout = () => {
     setLoading(true);
 
