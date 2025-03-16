@@ -7,6 +7,7 @@ import React, {
 
 type LoginUser = {
   id: string;
+  userName: string;
   isAdmin: boolean;
 };
 

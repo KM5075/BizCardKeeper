@@ -5,10 +5,15 @@ import { useAuth } from "../../hooks/useAuth";
 
 export const Login = () => {
   const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
   const { login } = useAuth();
 
   const onChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(e.target.value);
+  };
+
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
   };
   return (
     <div>
@@ -22,9 +27,15 @@ export const Login = () => {
         value={userId}
         onChange={onChangeUserId}
       />
+      <Input
+        placeholder="Password"
+        type="password"
+        value={password}
+        onChange={onChangePassword}
+      />
       <PrimaryButton
         label="Login"
-        onClick={() => login(userId)}
+        onClick={() => login(userId, password)}
       />
     </div>
   );
