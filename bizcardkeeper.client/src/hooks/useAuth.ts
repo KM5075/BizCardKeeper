@@ -47,7 +47,6 @@ export const useAuth = () => {
         };
         setLoginUser(loginUser);
         localStorage.setItem("loginUser", JSON.stringify(loginUser));
-        console.log(`login: ${userId}`);
 
         navigate("/home");
       })
@@ -77,15 +76,18 @@ export const useAuth = () => {
         localStorage.removeItem("loginUser");
         console.log("logout");
 
-        navigate("/");
         setLoading(false);
+        navigate("/");
       })
       .catch((err) => {
-        console.error("logout error");
-        console.error(err);
+        // 401エラーはログアウト成功とみなす
+        if (err.response.status != 401) {
+          console.error("logout error");
+          console.error(err);
+        }
+
         setLoading(false);
         navigate("/");
-        return;
       });
   };
 
