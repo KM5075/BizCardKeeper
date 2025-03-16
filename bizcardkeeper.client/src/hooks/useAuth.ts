@@ -46,7 +46,6 @@ export const useAuth = () => {
           isAdmin: res.data.isAdmin,
         };
         setLoginUser(loginUser);
-        localStorage.setItem("loginUser", JSON.stringify(loginUser));
 
         navigate("/home");
       })
@@ -73,7 +72,6 @@ export const useAuth = () => {
       .then((res) => {
         console.log(res.data);
         setLoginUser(null);
-        localStorage.removeItem("loginUser");
         console.log("logout");
 
         setLoading(false);
