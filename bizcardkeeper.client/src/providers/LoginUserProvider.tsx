@@ -5,8 +5,9 @@ import React, {
   useState,
 } from "react";
 
-type LoginUser = {
+export type LoginUser = {
   id: string;
+  userName: string;
   isAdmin: boolean;
 };
 
