@@ -17,7 +17,11 @@ export const useAuth = () => {
     setLoading(true);
 
     await axios
-      .post("api/login", { email: userId, password })
+      .post(
+        "api/login",
+        { email: userId, password },
+        { params: { useSessionCookies: true } }
+      )
       .then((res) => {
         console.log(res.data);
       })
