@@ -1,5 +1,9 @@
 using BizCardKeeper.Server.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using BizCardKeeper.Server.Constants; // Add this line
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add DbContext
 var connection = String.Empty;
 if (builder.Environment.IsDevelopment())
 {
@@ -24,7 +29,49 @@ else
 builder.Services.AddDbContext<BizCardKeeperDbContext>(options =>
     options.UseSqlServer(connection));
 
+builder.Services.AddDbContext<ApplicationIdentityDbContext>(options =>
+    options.UseSqlServer(connection));
+
+// Add Identity
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddRoles<IdentityRole>() // Separate AddRoles
+    .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
+    .AddDefaultTokenProviders();
+
+// すべてのリクエストに対して認証を要求する
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
+// Cookieの設定
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // 30分でCookieの有効期限が切れる
+});
+
+// ログインページへのリダイレクトを401に変更
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Events.OnRedirectToLogin = context =>
+    {
+        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+        return Task.CompletedTask;
+    };
+});
+
 var app = builder.Build();
+
+// テスト用のユーザーを作成
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationIdentityDbContext>();
+    context.Database.Migrate();
+    await SeedData.Initialize(services);
+}
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -36,6 +83,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -43,5 +91,30 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
+
+// Identity API
+app.MapGroup("api").MapIdentityApi<IdentityUser>().AllowAnonymous();
+
+app.MapPost("api/logout", async (SignInManager<IdentityUser> signInManager,
+    [FromBody] object empty) =>
+{
+    if (empty != null)
+    {
+        await signInManager.SignOutAsync();
+        return Results.Ok();
+    }
+    return Results.Unauthorized();
+});
+
+app.MapGet("api/auth/me", async (SignInManager<IdentityUser> signInManager, HttpContext httpContext) =>
+{
+    var user = await signInManager.UserManager.GetUserAsync(httpContext.User);
+    var isAdmin = await signInManager.UserManager.IsInRoleAsync(user, AppConstants.Authorization.Admin);
+    if (user != null)
+    {
+        return Results.Ok(new { user.Id, user.UserName, isAdmin });
+    }
+    return Results.Unauthorized();
+});
 
 app.Run();
