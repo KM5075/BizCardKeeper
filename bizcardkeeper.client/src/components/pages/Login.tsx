@@ -20,7 +20,7 @@ export const Login = () => {
       <Heading
         as={"h1"}
         color={"teal"}>
-        Login
+        Login Page
       </Heading>
       <Input
         placeholder="User ID"
