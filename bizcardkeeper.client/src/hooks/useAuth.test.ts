@@ -35,6 +35,7 @@ describe("useAuth", () => {
       await result.current.login("testUser", "password");
     });
 
+    expect(result.current.loading).toBe(false);
     expect(axios.post).toHaveBeenCalledWith(
       "api/login",
       { email: "testUser", password: "password" },
@@ -60,6 +61,7 @@ describe("useAuth", () => {
       await result.current.login("testUser", "password");
     });
 
+    expect(result.current.loading).toBe(false);
     expect(axios.post).toHaveBeenCalledWith(
       "api/login",
       { email: "testUser", password: "password" },
@@ -78,6 +80,7 @@ describe("useAuth", () => {
       await result.current.logout();
     });
 
+    expect(result.current.loading).toBe(false);
     expect(axios.post).toHaveBeenCalledWith("api/logout", { text: "logout" });
     expect(setLoginUser).toHaveBeenCalledWith(null);
     expect(navigate).toHaveBeenCalledWith("/");
@@ -94,6 +97,7 @@ describe("useAuth", () => {
       await result.current.logout();
     });
 
+    expect(result.current.loading).toBe(false);
     expect(axios.post).toHaveBeenCalledWith("api/logout", { text: "logout" });
     expect(navigate).toHaveBeenCalledWith("/");
   });
@@ -109,6 +113,7 @@ describe("useAuth", () => {
       await result.current.logout();
     });
 
+    expect(result.current.loading).toBe(false);
     expect(axios.post).toHaveBeenCalledWith("api/logout", { text: "logout" });
     expect(navigate).toHaveBeenCalledWith("/");
   });
