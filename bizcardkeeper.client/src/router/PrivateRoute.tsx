@@ -2,6 +2,7 @@ import { useLoginUser } from "../hooks/useLoginUser";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { LoginUser } from "../providers/LoginUserProvider";
+import axios from "axios";
 
 export const PrivateRoute = (props: { children: React.ReactNode }) => {
   const { children } = props;
@@ -12,25 +13,28 @@ export const PrivateRoute = (props: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const fetchLoginUser = async () => {
-      console.log("fetchLoginUser");
-      const response = await fetch("api/auth/me");
-      if (!response.ok) {
+      try {
+        const response = await axios.get("/api/auth/me");
+        if (!response.data) {
+          logout();
+          return;
+        }
+
+        // URLで直接アクセスされた場合、ログインユーザー情報を取得できないため再設定する。
+        if (!loginUser) {
+          const user: LoginUser = {
+            id: response.data.id,
+            userName: response.data.userName,
+            isAdmin: response.data.isAdmin,
+          };
+          setLoginUser(user);
+        }
+      } catch (error) {
+        console.error(error);
         logout();
-        return;
+      } finally {
+        setLoading(false);
       }
-
-      // URLで直接アクセスされた場合、ログインユーザー情報を取得できないため再設定する。
-      if (!loginUser) {
-        const responseData = await response.json();
-        const user: LoginUser = {
-          id: responseData.id,
-          userName: responseData.userName,
-          isAdmin: responseData.isAdmin,
-        };
-        setLoginUser(user);
-      }
-
-      setLoading(false);
     };
 
     fetchLoginUser();
