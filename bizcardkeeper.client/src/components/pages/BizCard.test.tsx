@@ -1,5 +1,4 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { render, screen, waitFor } from "@testing-library/react";
 import axios from "axios";
 import { BizCard } from "./BizCard";
 import { User } from "../../classes/User";
@@ -7,9 +6,11 @@ import { Skill } from "../../classes/Skill";
 import "@testing-library/jest-dom";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 
+// axiosをモック化
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+// モックユーザーデータの定義
 const mockUser: User = {
   id: 1,
   userName: "testuser",
@@ -40,7 +41,6 @@ describe("BizCard Component", () => {
 
   it("renders user data correctly", async () => {
     mockedAxios.get.mockResolvedValueOnce({ data: mockUser });
-
     render(
       <ChakraProvider value={defaultSystem}>
         <BizCard />
