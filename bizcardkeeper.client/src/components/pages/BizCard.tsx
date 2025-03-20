@@ -9,15 +9,28 @@ export const BizCard = () => {
   const { id } = useParams<{ id: string }>();
   const [user, setUser] = useState<User>();
 
-  const featchUser = async () => {
-    await axios.get<User>("/api/cards/" + id).then((res) => {
-      console.log(res.data);
-      setUser(res.data);
-    });
+  console.log("id", id);
+
+  const fetchUser = () => {
+    axios
+      .get<User>("/api/cards/" + id)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setUser(res.data);
+        } else {
+          setUser(undefined);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setUser(undefined);
+      });
   };
 
   useEffect(() => {
-    setTimeout(() => featchUser(), 1000);
+    console.log("useEffect");
+    fetchUser();
   }, []);
 
   return (
@@ -36,7 +49,8 @@ export const BizCard = () => {
           textAlign={"left"}
           borderRadius={8}
           boxShadow={"md"}
-          bg={"white"}>
+          bg={"white"}
+          data-testid={"bizcard"}>
           <Heading
             size={"3xl"}
             mb={4}>
@@ -93,7 +107,7 @@ export const BizCard = () => {
           </Box>
         </Box>
       ) : (
-        <Text>データがありません</Text>
+        <Text>No Data</Text>
       )}
     </Box>
   );
