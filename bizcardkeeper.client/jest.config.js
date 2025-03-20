@@ -3,6 +3,5 @@ export default {
     testEnvironment: 'jest-fixed-jsdom',
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
-        '^@/(.*)$": "<rootDir>/src/$1'
     },
 };
