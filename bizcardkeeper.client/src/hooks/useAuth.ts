@@ -26,8 +26,6 @@ export const useAuth = () => {
       );
 
       const data = await axios.get("api/auth/me");
-      console.log(data.data);
-
       const loginUser = {
         id: data.data.id,
         userName: data.data.userName,
@@ -57,10 +55,8 @@ export const useAuth = () => {
     // Cookieの削除
     axios
       .post("api/logout", { text: "logout" })
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
         setLoginUser(null);
-        console.log("logout");
 
         setLoading(false);
         navigate("/");

@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { FaFileAlt } from "react-icons/fa";
 
 export const BizCard = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>()!;
   const [user, setUser] = useState<User>();
 
-  console.log("id", id);
+  // console.log("id", id);
 
   const fetchUser = () => {
     axios
@@ -29,7 +29,7 @@ export const BizCard = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect");
+    // console.log("useEffect");
     fetchUser();
   }, []);
 

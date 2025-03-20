@@ -51,7 +51,6 @@ describe("BizCard Component", () => {
       expect(mockedAxios.get).toHaveBeenCalled();
     });
 
-    console.log(screen.debug());
     expect(screen.getByText("testuser")).toBeInTheDocument();
     expect(screen.getByText("This is a test user.")).toBeInTheDocument();
     expect(screen.getByText("JavaScript,React")).toBeInTheDocument();
