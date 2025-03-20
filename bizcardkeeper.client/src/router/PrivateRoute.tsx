@@ -30,7 +30,7 @@ export const PrivateRoute = (props: { children: React.ReactNode }) => {
           setLoginUser(user);
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
         logout();
       } finally {
         setLoading(false);

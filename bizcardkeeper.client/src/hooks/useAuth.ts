@@ -35,8 +35,8 @@ export const useAuth = () => {
       setLoginUser(loginUser);
       navigate("/home");
     } catch (error) {
-      console.error("login error");
-      console.error(error);
+      console.log("login error");
+      console.log(error);
       navigate("/");
       return;
     } finally {
@@ -64,8 +64,8 @@ export const useAuth = () => {
       .catch((err) => {
         // 401エラーはログアウト成功とみなす
         if (err.response.status != 401) {
-          console.error("logout error");
-          console.error(err);
+          console.log("logout error");
+          console.log(err);
         }
 
         setLoading(false);

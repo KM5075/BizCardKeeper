@@ -23,7 +23,7 @@ export const BizCard = () => {
         }
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
         setUser(undefined);
       });
   };
