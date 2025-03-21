@@ -9,6 +9,9 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "skipLibCheck": true,
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

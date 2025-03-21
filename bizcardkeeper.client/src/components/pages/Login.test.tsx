@@ -9,7 +9,7 @@ import userEvent from "@testing-library/user-event";
 jest.mock("../../hooks/useAuth");
 
 describe("Login Component", () => {
-  test("Password input reflects correctly on the screen", async () => {
+  it("Password input reflects correctly on the screen", async () => {
     const mockLogin = jest.fn();
     (useAuth as jest.Mock).mockReturnValue({
       login: mockLogin,
@@ -32,7 +32,7 @@ describe("Login Component", () => {
     expect((passwordInput as HTMLInputElement).value).toBe("testPassword");
   });
 
-  test("Login button calls login function with correct arguments", async () => {
+  it("Login button calls login function with correct arguments", async () => {
     const mockLogin = jest.fn();
     (useAuth as jest.Mock).mockReturnValue({
       login: mockLogin,
