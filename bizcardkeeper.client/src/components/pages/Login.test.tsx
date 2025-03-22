@@ -29,8 +29,8 @@ describe("Login Component", () => {
     await userEvent.type(userIdInput, "testUser");
     await userEvent.type(passwordInput, "testPassword");
 
-    expect((userIdInput as HTMLInputElement).value).toBe("testUser");
-    expect((passwordInput as HTMLInputElement).value).toBe("testPassword");
+    expect(userIdInput).toHaveValue("testUser");
+    expect(passwordInput).toHaveValue("testPassword");
   });
 
   it("Login button calls login function with correct arguments", async () => {
