@@ -18,44 +18,30 @@ export const useAuth = () => {
   const login = async (userId: string, password: string) => {
     setLoading(true);
 
-    await axios
-      .post(
+    try {
+      await axios.post(
         "api/login",
         { email: userId, password },
         { params: { useSessionCookies: true } }
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.error("login error");
-        console.error(err);
-        setLoading(false);
-        navigate("/");
-        return;
-      });
+      );
 
-    await axios
-      .get("api/auth/me")
-      .then((res) => {
-        console.log(res.data);
+      const data = await axios.get("api/auth/me");
+      const loginUser = {
+        id: data.data.id,
+        userName: data.data.userName,
+        isAdmin: data.data.isAdmin,
+      };
 
-        const loginUser = {
-          id: res.data.id,
-          userName: res.data.userName,
-          isAdmin: res.data.isAdmin,
-        };
-        setLoginUser(loginUser);
-
-        navigate("/home");
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-        navigate("/");
-      });
-
-    setLoading(false);
+      setLoginUser(loginUser);
+      navigate("/home");
+    } catch (error) {
+      console.error("login error");
+      console.error(error);
+      navigate("/");
+      return;
+    } finally {
+      setLoading(false);
+    }
   };
 
   /**
@@ -69,10 +55,8 @@ export const useAuth = () => {
     // Cookieの削除
     axios
       .post("api/logout", { text: "logout" })
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
         setLoginUser(null);
-        console.log("logout");
 
         setLoading(false);
         navigate("/");
