@@ -129,5 +129,40 @@ public class CardsControllerTests
         Assert.IsNotNull(result);
         Assert.AreEqual((int)HttpStatusCode.NotFound, ApiTestHelper.GetStatusCode(result));
     }
+
+    [TestMethod]
+    public void Post_AddUserTest()
+    {
+        // Arrange
+        var controller = new CardsController(_context);
+        var newUser = new User
+        {
+            UserName = "user4",
+            Description = "user4 description",
+            GithubId = "user4_github",
+            QiitaId = "user4_qiita",
+            TwitterId = "user4_twitter",
+        };
+
+        newUser.Skills.Add(new Skill { Name = "skill10" });
+        newUser.Skills.Add(new Skill { Name = "skill11" });
+
+        // Act
+        controller.Post(newUser);
+        var actual = _context.Users.Include(o => o.Skills).First(o => o.UserName == "user4");
+
+        // Assert
+        Assert.IsNotNull(actual);
+        Assert.AreEqual(newUser.UserName, actual.UserName);
+        Assert.AreEqual(newUser.Description, actual.Description);
+        Assert.AreEqual(newUser.GithubId, actual.GithubId);
+        Assert.AreEqual(newUser.QiitaId, actual.QiitaId);
+        Assert.AreEqual(newUser.TwitterId, actual.TwitterId);
+        Assert.AreEqual(newUser.Skills.Count, actual.Skills.Count);
+        for (int i = 0; i < newUser.Skills.Count; i++)
+        {
+            Assert.AreEqual(newUser.Skills[i].Name, actual.Skills[i].Name);
+        }
+    }
 }
 
