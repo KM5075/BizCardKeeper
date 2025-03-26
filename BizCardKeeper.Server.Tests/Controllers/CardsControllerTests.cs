@@ -131,7 +131,7 @@ public class CardsControllerTests
     }
 
     [TestMethod]
-    public void Post_AddUserTest()
+    public async Task Post_AddUserTest()
     {
         // Arrange
         var controller = new CardsController(_context);
@@ -148,7 +148,7 @@ public class CardsControllerTests
         newUser.Skills.Add(new Skill { Name = "skill11" });
 
         // Act
-        controller.Post(newUser);
+        await controller.Post(newUser);
         var actual = _context.Users.Include(o => o.Skills).First(o => o.UserName == "user4");
 
         // Assert
