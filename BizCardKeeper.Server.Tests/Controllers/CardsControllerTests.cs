@@ -147,6 +147,8 @@ public class CardsControllerTests
         newUser.Skills.Add(new Skill { Name = "skill10" });
         newUser.Skills.Add(new Skill { Name = "skill11" });
 
+        Assert.AreEqual(0, _context.Users.Count(o => o.UserName == "user4"));
+
         // Act
         await controller.Post(newUser);
         var actual = _context.Users.Include(o => o.Skills).First(o => o.UserName == "user4");
