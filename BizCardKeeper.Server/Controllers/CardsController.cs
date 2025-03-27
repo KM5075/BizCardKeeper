@@ -42,10 +42,12 @@ public class CardsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task Post(User user)
+    public async Task<ActionResult<User>> Post(User user)
     {
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
     }
 
     [HttpPut("{id}")]
