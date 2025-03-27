@@ -182,20 +182,20 @@ public class CardsControllerTests
 
         // Act
         var result = await controller.Post(newUser);
-        var actual = (result.Result as Microsoft.AspNetCore.Mvc.CreatedAtActionResult).Value as User;
+        var responseData = (result.Result as Microsoft.AspNetCore.Mvc.CreatedAtActionResult).Value as User;
 
         // Assert
         Assert.IsNotNull(result);
-        Assert.IsNotNull(actual);
-        Assert.AreEqual(newUser.UserName, actual.UserName);
-        Assert.AreEqual(newUser.Description, actual.Description);
-        Assert.AreEqual(newUser.GithubId, actual.GithubId);
-        Assert.AreEqual(newUser.QiitaId, actual.QiitaId);
-        Assert.AreEqual(newUser.TwitterId, actual.TwitterId);
-        Assert.AreEqual(newUser.Skills.Count, actual.Skills.Count);
+        Assert.IsNotNull(responseData);
+        Assert.AreEqual(newUser.UserName, responseData.UserName);
+        Assert.AreEqual(newUser.Description, responseData.Description);
+        Assert.AreEqual(newUser.GithubId, responseData.GithubId);
+        Assert.AreEqual(newUser.QiitaId, responseData.QiitaId);
+        Assert.AreEqual(newUser.TwitterId, responseData.TwitterId);
+        Assert.AreEqual(newUser.Skills.Count, responseData.Skills.Count);
         for (int i = 0; i < newUser.Skills.Count; i++)
         {
-            Assert.AreEqual(newUser.Skills[i].Name, actual.Skills[i].Name);
+            Assert.AreEqual(newUser.Skills[i].Name, responseData.Skills[i].Name);
         }
         _context.Database.RollbackTransaction();
     }
