@@ -42,7 +42,13 @@ public class CardsController : ControllerBase
     }
 
     [HttpPost]
-    public void Post([FromBody] string value) { }
+    public async Task<ActionResult<User>> Post(User user)
+    {
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
+    }
 
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value)
