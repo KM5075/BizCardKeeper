@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { User } from "../../classes/User";
 import { Field } from "../ui/field";
 import { SubmitButton } from "../atoms/SubmitButton";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const AddBizCard = () => {
   const {
@@ -20,14 +22,18 @@ export const AddBizCard = () => {
       twitterId: "",
     },
   });
+  const navigate = useNavigate();
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     console.log(data);
 
-    // ここでAPIにデータを送信する処理を追加します。
-    // 例: axios.post('/api/bizcard', data)
-    // .then(response => console.log(response))
-    // .catch(error => console.error(error));
+    try {
+      const res = await axios.post<User>("/api/cards", data);
+      console.log(res.data);
+      navigate("/home");
+    } catch (err) {
+      console.error(err);
+    }
   });
 
   return (
@@ -81,11 +87,7 @@ export const AddBizCard = () => {
             errorText={errors.skills?.message}>
             <Input
               mb={4}
-              {...register("skills", {
-                required: "好きな技術は必須です。",
-                validate: (value) =>
-                  value.length > 0 || "好きな技術は必須です。",
-              })}
+              {...register("skills")}
             />
           </Field>
 
