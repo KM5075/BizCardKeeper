@@ -5,9 +5,7 @@ import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import userEvent from "@testing-library/user-event";
 import axios from "axios";
 import { User } from "../../classes/User";
-import { MemoryRouter } from "react-router-dom";
-import { act } from "react-dom/test-utils";
-import { useNavigate } from "react-router-dom";
+import { MemoryRouter, useNavigate } from "react-router-dom";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -77,20 +75,17 @@ describe("AddBizCard", () => {
       </MemoryRouter>
     );
 
-    await act(async () => {
-      await userEvent.type(
-        screen.getByLabelText("ユーザ名"),
-        testUserData.userName
-      );
-      await userEvent.type(
-        screen.getByLabelText("自己紹介"),
-        testUserData.description
-      );
-      // const submitButton = screen.getByRole("button", { name: /登録/i });
-      const submitButton = screen.getByTestId("submit-button");
+    await userEvent.type(
+      screen.getByLabelText("ユーザ名"),
+      testUserData.userName
+    );
+    await userEvent.type(
+      screen.getByLabelText("自己紹介"),
+      testUserData.description
+    );
+    const submitButton = screen.getByTestId("submit-button");
 
-      await userEvent.click(submitButton);
-    });
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(mockedAxios.post).toHaveBeenCalledWith(
