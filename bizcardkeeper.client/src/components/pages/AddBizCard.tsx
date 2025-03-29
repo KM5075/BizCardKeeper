@@ -1,5 +1,4 @@
-import { Box, Heading, Input, Text } from "@chakra-ui/react";
-import { PrimaryButton } from "../atoms/PrimaryButton";
+import { Box, Heading, Input } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { User } from "../../classes/User";
 import { Field } from "../ui/field";
@@ -44,12 +43,6 @@ export const AddBizCard = () => {
       </Heading>
       <Box>
         <form onSubmit={onSubmit}>
-          <Text
-            fontSize="lg"
-            textAlign={"left"}
-            mb={2}>
-            お名前 *
-          </Text>
           <Field
             label="ユーザ名"
             invalid={!!errors.userName}
@@ -82,44 +75,64 @@ export const AddBizCard = () => {
             />
           </Field>
 
-          <Text
-            fontSize="lg"
-            textAlign={"left"}
-            mb={2}>
-            自己紹介 *
-          </Text>
+          <Field
+            label="好きな技術"
+            invalid={!!errors.skills}
+            errorText={errors.skills?.message}>
+            <Input
+              mb={4}
+              {...register("skills", {
+                required: "好きな技術は必須です。",
+                validate: (value) =>
+                  value.length > 0 || "好きな技術は必須です。",
+              })}
+            />
+          </Field>
 
-          <Text
-            fontSize="lg"
-            textAlign={"left"}
-            mb={2}>
-            好きな技術 *
-          </Text>
-          <Input mb={4} />
+          <Field
+            label="Github ID"
+            invalid={!!errors.githubId}
+            errorText={errors.githubId?.message}>
+            <Input
+              mb={4}
+              {...register("githubId", {
+                maxLength: {
+                  value: 50,
+                  message: "50文字以内で入力してください。",
+                },
+              })}
+            />
+          </Field>
 
-          <Text
-            fontSize="lg"
-            textAlign={"left"}
-            mb={2}>
-            Github ID
-          </Text>
-          <Input mb={4} />
+          <Field
+            label="Qiita ID"
+            invalid={!!errors.qiitaId}
+            errorText={errors.qiitaId?.message}>
+            <Input
+              mb={4}
+              {...register("qiitaId", {
+                maxLength: {
+                  value: 30,
+                  message: "30文字以内で入力してください。",
+                },
+              })}
+            />
+          </Field>
 
-          <Text
-            fontSize="lg"
-            textAlign={"left"}
-            mb={2}>
-            Qiita ID
-          </Text>
-          <Input mb={4} />
-
-          <Text
-            fontSize="lg"
-            textAlign={"left"}
-            mb={2}>
-            Twitter ID
-          </Text>
-          <Input mb={4} />
+          <Field
+            label="Twitter ID"
+            invalid={!!errors.twitterId}
+            errorText={errors.twitterId?.message}>
+            <Input
+              mb={4}
+              {...register("twitterId", {
+                maxLength: {
+                  value: 30,
+                  message: "30文字以内で入力してください。",
+                },
+              })}
+            />
+          </Field>
 
           <SubmitButton>登録</SubmitButton>
         </form>
