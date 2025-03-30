@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { Flex, Heading } from "@chakra-ui/react";
 
 export const Home = () => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -15,7 +17,7 @@ export const Home = () => {
         <PrimaryButton
           label="Create Card"
           onClick={() => {
-            console.log("test");
+            navigate("/cards/register");
           }}
         />
         <PrimaryButton
