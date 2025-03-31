@@ -94,6 +94,7 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
 
 interface SelectValueTextProps
   extends Omit<ChakraSelect.ValueTextProps, "children"> {
+  placeholder?: string;
   children?(items: CollectionItem[]): React.ReactNode;
 }
 
