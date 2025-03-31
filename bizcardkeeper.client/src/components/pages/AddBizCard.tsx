@@ -133,7 +133,7 @@ export const AddBizCard = () => {
                   multiple
                   collection={skills || createListCollection({ items: [] })}>
                   <SelectTrigger>
-                    <SelectValueText placeholder="Select Option" />
+                    <SelectValueText placeholder="Select option" />
                   </SelectTrigger>
                   <SelectContent>
                     {skills?.items.map((skill) => (
