@@ -71,22 +71,26 @@ export const SelectContent = React.forwardRef<
   );
 });
 
-export const SelectItem = React.forwardRef<
-  HTMLDivElement,
-  ChakraSelect.ItemProps
->(function SelectItem(props, ref) {
-  const { item, children, ...rest } = props;
-  return (
-    <ChakraSelect.Item
-      key={item.value}
-      item={item}
-      {...rest}
-      ref={ref}>
-      {children}
-      <ChakraSelect.ItemIndicator />
-    </ChakraSelect.Item>
-  );
-});
+interface SelectItemProps extends ChakraSelect.ItemProps {
+  item: CollectionItem;
+  children?: React.ReactNode;
+}
+
+export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
+  function SelectItem(props, ref) {
+    const { item, children, ...rest } = props;
+    return (
+      <ChakraSelect.Item
+        key={item.value}
+        item={item}
+        {...rest}
+        ref={ref}>
+        {children}
+        <ChakraSelect.ItemIndicator />
+      </ChakraSelect.Item>
+    );
+  }
+);
 
 interface SelectValueTextProps
   extends Omit<ChakraSelect.ValueTextProps, "children"> {
