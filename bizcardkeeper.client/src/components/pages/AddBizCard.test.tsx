@@ -15,6 +15,19 @@ jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 
+beforeAll(() => {
+  global.ResizeObserver = jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn(),
+  }));
+
+  // Mock scrollTo to prevent TypeError
+  Element.prototype.scrollTo = jest.fn();
+});
+
+afterAll(() => {});
+
 const testUserData: User = {
   id: 0,
   userName: "TestUser",
@@ -83,6 +96,14 @@ describe("AddBizCard", () => {
       screen.getByLabelText("自己紹介"),
       testUserData.description
     );
+
+    await userEvent.click(
+      screen.getByRole("combobox", {
+        name: "好きな技術",
+      })
+    );
+
+    await userEvent.click(screen.getByText("JavaScript"));
     const submitButton = screen.getByTestId("submit-button");
 
     await userEvent.click(submitButton);
