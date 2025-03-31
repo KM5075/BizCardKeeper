@@ -7,6 +7,7 @@ import * as React from "react";
 
 interface SelectTriggerProps extends ChakraSelect.ControlProps {
   clearable?: boolean;
+  children?: React.ReactNode;
 }
 
 export const SelectTrigger = React.forwardRef<
@@ -48,6 +49,7 @@ const SelectClearTrigger = React.forwardRef<
 interface SelectContentProps extends ChakraSelect.ContentProps {
   portalled?: boolean;
   portalRef?: React.RefObject<HTMLElement>;
+  children?: React.ReactNode;
 }
 
 export const SelectContent = React.forwardRef<
