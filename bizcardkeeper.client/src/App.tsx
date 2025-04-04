@@ -7,6 +7,7 @@ import { Home } from "./components/pages/Home.tsx";
 import { Login } from "./components/pages/Login.tsx";
 import { LoginUserProvider } from "./providers/LoginUserProvider.tsx";
 import { PrivateRoute } from "./router/PrivateRoute.tsx";
+import { AddBizCard } from "./components/pages/AddBizCard.tsx";
 
 function App() {
   return (
@@ -39,6 +40,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <BizCard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/cards/register"
+              element={
+                <PrivateRoute>
+                  <AddBizCard />
                 </PrivateRoute>
               }
             />
