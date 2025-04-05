@@ -25,10 +25,7 @@ type formData = {
   id: number;
   userName: string;
   description: string;
-  skills: ListCollection<{
-    label: string;
-    value: string;
-  }>;
+  skills: ListCollection<{ label: string; value: string }>;
   githubId: string;
   qiitaId: string;
   twitterId: string;
@@ -155,7 +152,8 @@ export const AddBizCard = () => {
               render={({ field }) => (
                 <SelectRoot
                   name={field.name}
-                  value={field.value}
+                  // value={field.value.items.map((item) => item.value)} // 修正: valueを配列に変更
+
                   onValueChange={(values) => field.onChange(values)} // 修正: 配列を受け取るように
                   multiple
                   collection={
