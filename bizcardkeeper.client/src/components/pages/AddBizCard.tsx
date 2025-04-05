@@ -48,9 +48,15 @@ export const AddBizCard = () => {
       twitterId: "",
     },
   });
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const [skills, setSkills] = useState<Skill[]>([]);
+  const skillCollections = createListCollection({
+    items: skills.map((skill) => ({
+      label: skill.name,
+      value: skill.id.toString(),
+    })),
+  });
 
   useEffect(() => {
     axios
@@ -63,22 +69,14 @@ export const AddBizCard = () => {
       });
   }, []);
 
-  const skillCollections = createListCollection({
-    items: skills.map((skill) => ({
-      label: skill.name,
-      value: skill.id.toString(),
-    })),
-  });
-
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-
     try {
       // Skillsをstring[]からskill[]に変換
       const convertedSkills: Skill[] = skills.filter((skill) =>
         data.skills.items.some((item) => item.value === skill.id.toString())
       );
 
+      // Userオブジェクトを作成
       const userData: User = {
         ...data,
         skills: convertedSkills,
