@@ -39,7 +39,8 @@ jobs:
           name: webapp
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
   deploy:
-    if: github.ref == 'refs/heads/master' # masterブランチのみデプロイ
+    # テストのため一時的にコメントアウト
+    # if: github.ref == 'refs/heads/master' # masterブランチのみデプロイ
     runs-on: windows-latest
     needs: build
     permissions:
@@ -58,7 +59,8 @@ jobs:
         run: |
           cd .\BizCardKeeper.Server\
           dotnet tool install --global dotnet-ef
-          dotnet ef database update --connection '${{ secrets.AZURE_SQL_CONNECTION_STRING2 }}'
+          dotnet ef database update -c "ApplicationIdentityDbContext" --connection '${{ secrets.AZURE_SQL_CONNECTION_STRING2 }}'
+          dotnet ef database update -c "BizCardKeeperDbContext" --connection '${{ secrets.AZURE_SQL_CONNECTION_STRING2 }}'
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
