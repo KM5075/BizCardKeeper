@@ -15,6 +15,14 @@ jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 
+const mockSkills = [
+  { id: 1, name: "JavaScript", displaySkillInfo: () => "JavaScript" },
+  { id: 2, name: "TypeScript", displaySkillInfo: () => "TypeScript" },
+  { id: 3, name: "React", displaySkillInfo: () => "React" },
+  { id: 4, name: "Node.js", displaySkillInfo: () => "Node.js" },
+  { id: 5, name: "Python", displaySkillInfo: () => "Python" },
+];
+
 beforeAll(() => {
   global.ResizeObserver = jest.fn().mockImplementation(() => ({
     observe: jest.fn(),
@@ -53,6 +61,7 @@ describe("AddBizCard", () => {
     expect(true).toBe(true);
   });
   it("should render some validation", async () => {
+    mockedAxios.get.mockResolvedValueOnce({ data: mockSkills });
     render(
       <ChakraProvider value={defaultSystem}>
         <AddBizCard />
@@ -79,6 +88,7 @@ describe("AddBizCard", () => {
       displayUserInfo: testUserData.displayUserInfo,
     };
 
+    mockedAxios.get.mockResolvedValueOnce({ data: mockSkills });
     mockedAxios.post.mockResolvedValueOnce({ data: response });
     render(
       <MemoryRouter>

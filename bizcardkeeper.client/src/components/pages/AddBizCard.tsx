@@ -1,5 +1,11 @@
-import { Box, createListCollection, Heading, Input } from "@chakra-ui/react";
-import { Controller, useForm } from "react-hook-form";
+import {
+  Box,
+  createListCollection,
+  Heading,
+  Input,
+  ListCollection,
+} from "@chakra-ui/react";
+import { Controller, set, useForm } from "react-hook-form";
 import { User } from "../../classes/User";
 import { Field } from "../ui/field";
 import { SubmitButton } from "../atoms/SubmitButton";
@@ -13,6 +19,7 @@ import {
   SelectTrigger,
   SelectValueText,
 } from "../ui/select";
+import { useEffect, useState } from "react";
 
 type formData = {
   id: number;
@@ -43,6 +50,7 @@ export const AddBizCard = () => {
   });
   const navigate = useNavigate();
 
+  const [skills, setSkills] = useState<Skill[]>([]);
   const tempSkills: Skill[] = [
     { id: 1, name: "JavaScript", displaySkillInfo: () => "JavaScript" },
     { id: 2, name: "TypeScript", displaySkillInfo: () => "TypeScript" },
@@ -51,8 +59,20 @@ export const AddBizCard = () => {
     { id: 5, name: "Python", displaySkillInfo: () => "Python" },
   ];
 
-  const skills = createListCollection({
-    items: tempSkills.map((skill) => ({
+  useEffect(() => {
+    setSkills(tempSkills);
+    // axios
+    //   .get<Skill[]>("/api/skills")
+    //   .then((res) => {
+    //     setSkills(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
+  }, []);
+
+  const skillCollections = createListCollection({
+    items: skills.map((skill) => ({
       label: skill.name,
       value: skill.id.toString(),
     })),
@@ -62,9 +82,27 @@ export const AddBizCard = () => {
     console.log(data);
 
     try {
-      const res = await axios.post<User>("/api/cards", data);
-      console.log(res.data);
-      navigate("/home");
+      // Skillsをstring[]からskill[]に変換
+      const convertedSkills = data.skills.map((skill) => {
+        const skillId = parseInt(skill, 10);
+        const foundSkill = skills.find((s) => s.id === skillId);
+        if (!foundSkill) {
+          throw new Error(`Skill with id ${skillId} not found`);
+        }
+        return foundSkill;
+      });
+
+      const userData: User = {
+        ...data,
+        skills: convertedSkills,
+        displayUserInfo: () => {
+          return `${data.userName} - ${data.description}`;
+        },
+      };
+      console.log(userData);
+      // const res = await axios.post<User>("/api/cards", userData);
+      // console.log(res.data);
+      // navigate("/home");
     } catch (err) {
       console.error(err);
     }
@@ -131,12 +169,14 @@ export const AddBizCard = () => {
                   value={field.value}
                   onValueChange={(values) => field.onChange(values)} // 修正: 配列を受け取るように
                   multiple
-                  collection={skills || createListCollection({ items: [] })}>
+                  collection={
+                    skillCollections || createListCollection({ items: [] })
+                  }>
                   <SelectTrigger>
                     <SelectValueText placeholder="Select option" />
                   </SelectTrigger>
                   <SelectContent>
-                    {skills?.items.map((skill) => (
+                    {skillCollections?.items.map((skill) => (
                       <SelectItem
                         item={skill}
                         key={skill.value}>
