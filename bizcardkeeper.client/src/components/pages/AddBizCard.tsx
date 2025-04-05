@@ -5,7 +5,7 @@ import {
   Input,
   ListCollection,
 } from "@chakra-ui/react";
-import { Controller, set, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { User } from "../../classes/User";
 import { Field } from "../ui/field";
 import { SubmitButton } from "../atoms/SubmitButton";
@@ -25,7 +25,10 @@ type formData = {
   id: number;
   userName: string;
   description: string;
-  skills: string[];
+  skills: ListCollection<{
+    label: string;
+    value: string;
+  }>;
   githubId: string;
   qiitaId: string;
   twitterId: string;
@@ -51,24 +54,16 @@ export const AddBizCard = () => {
   const navigate = useNavigate();
 
   const [skills, setSkills] = useState<Skill[]>([]);
-  const tempSkills: Skill[] = [
-    { id: 1, name: "JavaScript", displaySkillInfo: () => "JavaScript" },
-    { id: 2, name: "TypeScript", displaySkillInfo: () => "TypeScript" },
-    { id: 3, name: "React", displaySkillInfo: () => "React" },
-    { id: 4, name: "Node.js", displaySkillInfo: () => "Node.js" },
-    { id: 5, name: "Python", displaySkillInfo: () => "Python" },
-  ];
 
   useEffect(() => {
-    setSkills(tempSkills);
-    // axios
-    //   .get<Skill[]>("/api/skills")
-    //   .then((res) => {
-    //     setSkills(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
+    axios
+      .get<Skill[]>("/api/skills")
+      .then((res) => {
+        setSkills(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   const skillCollections = createListCollection({
@@ -83,14 +78,9 @@ export const AddBizCard = () => {
 
     try {
       // Skillsをstring[]からskill[]に変換
-      const convertedSkills = data.skills.map((skill) => {
-        const skillId = parseInt(skill, 10);
-        const foundSkill = skills.find((s) => s.id === skillId);
-        if (!foundSkill) {
-          throw new Error(`Skill with id ${skillId} not found`);
-        }
-        return foundSkill;
-      });
+      const convertedSkills: Skill[] = skills.filter((skill) =>
+        data.skills.items.some((item) => item.value === skill.id.toString())
+      );
 
       const userData: User = {
         ...data,
@@ -99,10 +89,9 @@ export const AddBizCard = () => {
           return `${data.userName} - ${data.description}`;
         },
       };
-      console.log(userData);
-      // const res = await axios.post<User>("/api/cards", userData);
-      // console.log(res.data);
-      // navigate("/home");
+
+      await axios.post<User>("/api/cards", userData);
+      navigate("/home");
     } catch (err) {
       console.error(err);
     }
