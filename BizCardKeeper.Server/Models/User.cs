@@ -23,6 +23,6 @@ public class User
 
     public string? TwitterId { get; set; }
 
-    public List<Skill> Skills { get; } = [];
+    public List<Skill> Skills { get; set; } = [];
 }
 

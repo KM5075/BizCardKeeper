@@ -6,6 +6,7 @@ using BizCardKeeper.Server.Data;
 using BizCardKeeper.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace BizCardKeeper.Server.Controllers;
 
@@ -42,7 +43,35 @@ public class CardsController : ControllerBase
     }
 
     [HttpPost]
-    public void Post([FromBody] string value) { }
+    public async Task<ActionResult<User>> Post(User user)
+    {
+        var addUser = new User
+        {
+            UserName = user.UserName,
+            Description = user.Description,
+            GithubId = user.GithubId,
+            QiitaId = user.QiitaId,
+            TwitterId = user.TwitterId,
+        };
+
+        // APIから受け取ったスキルはEFCoreによってトラッキングされていないため同じIDでも新規扱いになる
+        // そのため、スキルのIDを元にDBに存在するスキルを取得し、存在しないスキルは新規作成する
+        var existSkills = from skill in _context.Skills
+                          where user.Skills.Select(s => s.Id).Contains(skill.Id)
+                          select skill;
+
+        var notExistSkills = from skill in user.Skills
+                             where !_context.Skills.Select(s => s.Id).Contains(skill.Id)
+                             select new Skill { Name = skill.Name, };
+
+        addUser.Skills.AddRange(existSkills);
+        addUser.Skills.AddRange(notExistSkills);
+
+        _context.Users.Add(addUser);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(Get), new { id = addUser.Id }, addUser);
+    }
 
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value)
