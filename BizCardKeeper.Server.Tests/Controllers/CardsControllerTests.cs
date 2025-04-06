@@ -215,6 +215,7 @@ public class CardsControllerTests
             TwitterId = "user4_twitter",
         };
 
+        newUser.Skills.Add(new Skill { Id = 1, Name = "skill1" });
         newUser.Skills.Add(new Skill { Name = "skill10" });
         newUser.Skills.Add(new Skill { Name = "skill11" });
 
