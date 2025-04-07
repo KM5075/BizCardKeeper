@@ -5,6 +5,8 @@ import { User } from "../../classes/User";
 import { Skill } from "../../classes/Skill";
 import "@testing-library/jest-dom";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
+import userEvent from "@testing-library/user-event";
+import { useNavigate } from "react-router-dom";
 
 // axiosをモック化
 jest.mock("axios");
@@ -21,6 +23,10 @@ const mockUser: User = {
   twitterId: "testtwitter",
   displayUserInfo: () => "User Info",
 };
+
+jest.mock("react-router-dom", () => ({
+  useNavigate: jest.fn(),
+}));
 
 // 各テスト後にモックをクリア
 afterEach(() => {
@@ -57,4 +63,22 @@ describe("BizCard Component", () => {
     expect(screen.getByText("自己紹介")).toBeInTheDocument();
     expect(screen.getByText("好きな技術")).toBeInTheDocument();
   });
+  
+  it("Back to Top button works", async () => {
+    mockedAxios.get.mockResolvedValueOnce({ data: mockUser });
+    render(
+      <ChakraProvider value={defaultSystem}>
+        <BizCard />
+      </ChakraProvider>
+    );
+
+    await waitFor(() => {
+      expect(mockedAxios.get).toHaveBeenCalled();
+    });
+
+    const backToTopButton = screen.getByTestId("BackButton");
+    userEvent.click(backToTopButton);
+
+    expect(useNavigate).toHaveBeenCalledWith("/home");
+  }
 });
