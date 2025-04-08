@@ -29,6 +29,14 @@ jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(), // 明示的にモック化
 }));
 
+beforeAll(() => {
+  global.ResizeObserver = jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn(),
+  }));
+});
+
 // 各テスト後にモックをクリア
 afterEach(() => {
   jest.clearAllMocks();
@@ -92,10 +100,7 @@ describe("BizCard Component", () => {
     await userEvent.click(backToTopButton);
 
     await waitFor(() => {
-      // expect(navigate).toHaveBeenCalledWith("/home");
-      expect(navigate).toHaveBeenCalledTimes(1); // navigateが1回呼ばれたことを確認
+      expect(navigate).toHaveBeenCalledWith("/home");
     });
   });
-
-  console.log(navigate); // navigateがモック関数であることを確認
 });

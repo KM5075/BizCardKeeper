@@ -1,5 +1,5 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 import { User } from "../../classes/User";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -10,8 +10,6 @@ export const BizCard = () => {
   const { id } = useParams<{ id: string }>()!;
   const [user, setUser] = useState<User>();
   const navigate = useNavigate();
-
-  // console.log("id", id);
 
   const fetchUser = () => {
     axios
@@ -31,12 +29,10 @@ export const BizCard = () => {
   };
 
   useEffect(() => {
-    // console.log("useEffect");
     fetchUser();
   }, []);
 
   const onClickBackButton = () => {
-    console.log("onClickBackButton");
     navigate("/home");
   };
 
