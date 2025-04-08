@@ -5,7 +5,7 @@ import { Flex, Heading, Input } from "@chakra-ui/react";
 import { useState } from "react";
 
 export const Home = () => {
-  const [id, setId] = useState<string>();
+  const [id, setId] = useState<string>("");
   const { logout } = useAuth();
   const navigate = useNavigate();
 
