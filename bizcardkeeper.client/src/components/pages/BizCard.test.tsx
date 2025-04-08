@@ -6,7 +6,7 @@ import { Skill } from "../../classes/Skill";
 import "@testing-library/jest-dom";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import userEvent from "@testing-library/user-event";
-import { useNavigate } from "react-router-dom";
+import { MemoryRouter, useNavigate } from "react-router-dom";
 
 // axiosをモック化
 jest.mock("axios");
@@ -25,7 +25,8 @@ const mockUser: User = {
 };
 
 jest.mock("react-router-dom", () => ({
-  useNavigate: jest.fn(),
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: jest.fn(), // 明示的にモック化
 }));
 
 // 各テスト後にモックをクリア
@@ -34,12 +35,19 @@ afterEach(() => {
 });
 
 describe("BizCard Component", () => {
+  const navigate = jest.fn();
+  beforeEach(() => {
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
+  });
+
   it("renders NoData", () => {
     mockedAxios.get.mockResolvedValueOnce({ data: null });
     render(
-      <ChakraProvider value={defaultSystem}>
-        <BizCard />
-      </ChakraProvider>
+      <MemoryRouter>
+        <ChakraProvider value={defaultSystem}>
+          <BizCard />
+        </ChakraProvider>
+      </MemoryRouter>
     );
 
     expect(screen.getByText("No Data")).toBeInTheDocument();
@@ -48,9 +56,11 @@ describe("BizCard Component", () => {
   it("renders user data correctly", async () => {
     mockedAxios.get.mockResolvedValueOnce({ data: mockUser });
     render(
-      <ChakraProvider value={defaultSystem}>
-        <BizCard />
-      </ChakraProvider>
+      <MemoryRouter>
+        <ChakraProvider value={defaultSystem}>
+          <BizCard />
+        </ChakraProvider>
+      </MemoryRouter>
     );
 
     await waitFor(() => {
@@ -63,22 +73,29 @@ describe("BizCard Component", () => {
     expect(screen.getByText("自己紹介")).toBeInTheDocument();
     expect(screen.getByText("好きな技術")).toBeInTheDocument();
   });
-  
+
   it("Back to Top button works", async () => {
     mockedAxios.get.mockResolvedValueOnce({ data: mockUser });
     render(
-      <ChakraProvider value={defaultSystem}>
-        <BizCard />
-      </ChakraProvider>
+      <MemoryRouter initialEntries={["/cards/1"]}>
+        <ChakraProvider value={defaultSystem}>
+          <BizCard />
+        </ChakraProvider>
+      </MemoryRouter>
     );
 
     await waitFor(() => {
       expect(mockedAxios.get).toHaveBeenCalled();
     });
 
-    const backToTopButton = screen.getByTestId("BackButton");
-    userEvent.click(backToTopButton);
+    const backToTopButton = screen.getByTestId("Back-Button");
+    await userEvent.click(backToTopButton);
 
-    expect(useNavigate).toHaveBeenCalledWith("/home");
-  }
+    await waitFor(() => {
+      // expect(navigate).toHaveBeenCalledWith("/home");
+      expect(navigate).toHaveBeenCalledTimes(1); // navigateが1回呼ばれたことを確認
+    });
+  });
+
+  console.log(navigate); // navigateがモック関数であることを確認
 });

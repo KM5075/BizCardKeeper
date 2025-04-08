@@ -1,13 +1,15 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { User } from "../../classes/User";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaFileAlt } from "react-icons/fa";
+import { PrimaryButton } from "../atoms/PrimaryButton";
 
 export const BizCard = () => {
   const { id } = useParams<{ id: string }>()!;
   const [user, setUser] = useState<User>();
+  const navigate = useNavigate();
 
   // console.log("id", id);
 
@@ -32,6 +34,11 @@ export const BizCard = () => {
     // console.log("useEffect");
     fetchUser();
   }, []);
+
+  const onClickBackButton = () => {
+    console.log("onClickBackButton");
+    navigate("/home");
+  };
 
   return (
     <Box>
@@ -105,6 +112,11 @@ export const BizCard = () => {
               </a>
             </Box>
           </Box>
+          <PrimaryButton
+            label="戻る"
+            testId="Back-Button"
+            onClick={onClickBackButton}
+          />
         </Box>
       ) : (
         <Text>No Data</Text>
