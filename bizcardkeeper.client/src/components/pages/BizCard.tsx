@@ -46,7 +46,8 @@ export const BizCard = () => {
       {user ? (
         <Box
           alignItems={"start"}
-          mt={0}
+          mt={4}
+          mb={4}
           p={4}
           borderWidth={1}
           textAlign={"left"}
@@ -108,15 +109,15 @@ export const BizCard = () => {
               </a>
             </Box>
           </Box>
-          <PrimaryButton
-            label="戻る"
-            testId="Back-Button"
-            onClick={onClickBackButton}
-          />
         </Box>
       ) : (
         <Text>No Data</Text>
       )}
+      <PrimaryButton
+        label="戻る"
+        testId="Back-Button"
+        onClick={onClickBackButton}
+      />
     </Box>
   );
 };
