@@ -100,6 +100,7 @@ export const AddBizCard = () => {
       boxShadow="md">
       <Heading
         size="3xl"
+        color="teal"
         mb={4}>
         New BizCard
       </Heading>

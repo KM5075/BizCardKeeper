@@ -18,7 +18,7 @@ test("Target Page Test", async ({ page }) => {
   await inputField.fill("1");
 
   // Click on display button
-  const displayButton = page.locator('button:has-text("表示")');
+  const displayButton = page.locator('button:has-text("Display Card")');
   await displayButton.click();
 
   await expect(page).toHaveURL("https://localhost:54856/cards/1");
