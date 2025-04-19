@@ -1,6 +1,7 @@
 import {
   Box,
   createListCollection,
+  Flex,
   Heading,
   Input,
   ListCollection,
@@ -20,6 +21,7 @@ import {
   SelectValueText,
 } from "../ui/select";
 import { useEffect, useState } from "react";
+import { PrimaryButton } from "../atoms/PrimaryButton";
 
 type formData = {
   id: number;
@@ -92,6 +94,10 @@ export const AddBizCard = () => {
     }
   });
 
+  const onClickBackButton = () => {
+    navigate("/home");
+  };
+
   return (
     <Box
       bg={"white"}
@@ -100,6 +106,7 @@ export const AddBizCard = () => {
       boxShadow="md">
       <Heading
         size="3xl"
+        color="teal"
         mb={4}>
         New BizCard
       </Heading>
@@ -219,7 +226,17 @@ export const AddBizCard = () => {
             />
           </Field>
 
-          <SubmitButton>登録</SubmitButton>
+          <Flex
+            alignItems="center"
+            justifyContent="space-between"
+            mt={4}>
+            <SubmitButton>登録</SubmitButton>
+            <PrimaryButton
+              label="戻る"
+              testId="Back-Button"
+              onClick={onClickBackButton}
+            />
+          </Flex>
         </form>
       </Box>
     </Box>

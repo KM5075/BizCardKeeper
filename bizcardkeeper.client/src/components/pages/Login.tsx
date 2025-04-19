@@ -31,10 +31,12 @@ export const Login = () => {
       <Heading
         as={"h1"}
         color={"teal"}
-        mb={4}>
+        mb={10}>
         Login Page
       </Heading>
-      <Box mb={4}>
+      <Box
+        mb={4}
+        spaceX={4}>
         <PrimaryButton
           label="Normal User"
           onClick={normalUserSet}
@@ -53,6 +55,7 @@ export const Login = () => {
         placeholder="Password"
         type="password"
         value={password}
+        mb={4}
         onChange={onChangePassword}
       />
       <PrimaryButton

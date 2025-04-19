@@ -12,8 +12,6 @@ public class BizCardKeeperDbContext : DbContext
     {
     }
 
-    public DbSet<Temp> Temp { get; set; }
-
     public DbSet<User> Users { get; set; }
 
     public DbSet<Skill> Skills { get; set; }

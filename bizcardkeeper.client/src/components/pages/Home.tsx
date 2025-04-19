@@ -2,12 +2,23 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { Flex, Heading, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLoginUser } from "../../hooks/useLoginUser";
 
 export const Home = () => {
   const [id, setId] = useState<string>("");
+  const [disabled, setDisabled] = useState<boolean>(false);
   const { logout } = useAuth();
+  const { loginUser } = useLoginUser();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginUser?.isAdmin) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [loginUser]);
 
   const onClickDisplayButton = () => {
     if (id) {
@@ -23,23 +34,12 @@ export const Home = () => {
 
   return (
     <div>
-      <Heading as={"h1"}>Home</Heading>
-
-      <Flex
-        direction="row"
-        gap={4}
-        mb={4}>
-        <PrimaryButton
-          label="Create Card"
-          onClick={() => {
-            navigate("/cards/register");
-          }}
-        />
-        <PrimaryButton
-          label="Logout"
-          onClick={logout}
-        />
-      </Flex>
+      <Heading
+        as={"h1"}
+        color="teal"
+        mb={10}>
+        Home
+      </Heading>
 
       <Input
         placeholder="ID"
@@ -47,10 +47,26 @@ export const Home = () => {
         mb={4}
         value={id}
       />
+      <Flex
+        direction="row"
+        gap={4}
+        mb={4}>
+        <PrimaryButton
+          label="Display Card"
+          testId="Display-Button"
+          onClick={onClickDisplayButton}
+        />
+        <PrimaryButton
+          label="Create New Card"
+          disabled={disabled}
+          onClick={() => {
+            navigate("/cards/register");
+          }}
+        />
+      </Flex>
       <PrimaryButton
-        label="表示"
-        testId="Display-Button"
-        onClick={onClickDisplayButton}
+        label="Logout"
+        onClick={logout}
       />
     </div>
   );
