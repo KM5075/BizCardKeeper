@@ -2,12 +2,23 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { Flex, Heading, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLoginUser } from "../../hooks/useLoginUser";
 
 export const Home = () => {
   const [id, setId] = useState<string>("");
+  const [disabled, setDisabled] = useState<boolean>(false);
   const { logout } = useAuth();
+  const { loginUser } = useLoginUser();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginUser?.isAdmin) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [loginUser]);
 
   const onClickDisplayButton = () => {
     if (id) {
@@ -47,6 +58,7 @@ export const Home = () => {
         />
         <PrimaryButton
           label="Create New Card"
+          disabled={disabled}
           onClick={() => {
             navigate("/cards/register");
           }}
