@@ -11,7 +11,7 @@ namespace BizCardKeeper.Server.Tests;
 public class TestDatabaseInitializer
 {
     private const string ConnectionString =
-        @"Data Source=StudyChronoTS_test.db";
+        @"Data Source=BizCardKeeper_test.db";
     private static readonly object _lock = new();
     private static bool _databaseInitialized;
 
