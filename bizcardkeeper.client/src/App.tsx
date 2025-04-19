@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Temp } from "./Temp.tsx";
 import { Page404 } from "./components/pages/Page404.tsx";
 import { BizCard } from "./components/pages/BizCard.tsx";
 import { Home } from "./components/pages/Home.tsx";
@@ -24,14 +23,6 @@ function App() {
               element={
                 <PrivateRoute>
                   <Home />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/temp"
-              element={
-                <PrivateRoute>
-                  <Temp />
                 </PrivateRoute>
               }
             />
