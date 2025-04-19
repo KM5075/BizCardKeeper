@@ -5,7 +5,7 @@
 namespace BizCardKeeper.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class ChangeToDbSet : Migration
+    public partial class changetoSQLite : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,9 +14,9 @@ namespace BizCardKeeper.Server.Migrations
                 name: "Skills",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,29 +24,16 @@ namespace BizCardKeeper.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Temp",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Temp", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GithubId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QiitaId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TwitterId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    GithubId = table.Column<string>(type: "TEXT", nullable: true),
+                    QiitaId = table.Column<string>(type: "TEXT", nullable: true),
+                    TwitterId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,8 +44,8 @@ namespace BizCardKeeper.Server.Migrations
                 name: "SkillUser",
                 columns: table => new
                 {
-                    SkillsId = table.Column<int>(type: "int", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false)
+                    SkillsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UsersId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,9 +75,6 @@ namespace BizCardKeeper.Server.Migrations
         {
             migrationBuilder.DropTable(
                 name: "SkillUser");
-
-            migrationBuilder.DropTable(
-                name: "Temp");
 
             migrationBuilder.DropTable(
                 name: "Skills");

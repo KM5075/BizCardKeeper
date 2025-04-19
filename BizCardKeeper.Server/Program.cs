@@ -15,22 +15,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add DbContext
-var connection = String.Empty;
-if (builder.Environment.IsDevelopment())
-{
-    builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
-    connection = builder.Configuration.GetConnectionString("LOCAL_SQL_CONNECTIONSTRING");
-}
-else
-{
-    connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
-}
+var connection = builder.Configuration.GetConnectionString("CONNECTIONSTRING"); ;
 
 builder.Services.AddDbContext<BizCardKeeperDbContext>(options =>
-    options.UseSqlServer(connection));
+    options.UseSqlite(connection));
 
 builder.Services.AddDbContext<ApplicationIdentityDbContext>(options =>
-    options.UseSqlServer(connection));
+    options.UseSqlite(connection));
 
 // Add Identity
 builder.Services.AddDefaultIdentity<IdentityUser>()
