@@ -11,7 +11,7 @@ namespace BizCardKeeper.Server.Tests;
 public class TestDatabaseInitializer
 {
     private const string ConnectionString =
-        @"Server=(localdb)\mssqllocaldb;Database=BizCardKeeper-TestDB;Trusted_Connection=True;ConnectRetryCount=0";
+        @"Data Source=StudyChronoTS_test.db";
     private static readonly object _lock = new();
     private static bool _databaseInitialized;
 
@@ -90,7 +90,7 @@ public class TestDatabaseInitializer
     public static BizCardKeeperDbContext CreateContext() =>
         new BizCardKeeperDbContext(
             new DbContextOptionsBuilder<BizCardKeeperDbContext>()
-                .UseSqlServer(ConnectionString)
+                .UseSqlite(ConnectionString)
                 .Options
         );
 }
