@@ -3,6 +3,7 @@ using BizCardKeeper.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BizCardKeeper.Server.Migrations
 {
     [DbContext(typeof(BizCardKeeperDbContext))]
-    partial class BizCardKeeperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250419052738_delete-temp-table")]
+    partial class deletetemptable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
