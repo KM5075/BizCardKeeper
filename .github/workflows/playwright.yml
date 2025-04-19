@@ -14,11 +14,17 @@ jobs:
         with:
           node-version: lts/*
       - name: Install dependencies
-        run: npm ci
+        run: |
+          cd .\BizcardKeeper.client\
+          npm ci
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: |
+          cd .\BizcardKeeper.client\
+          npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test
+        run: |
+          cd .\BizcardKeeper.client\
+          npx playwright test
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
